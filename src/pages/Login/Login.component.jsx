@@ -21,7 +21,6 @@ class Login extends Component {
   }
 
   handleChange = ({ target }) => {
-    console.log("ok");
     this.setState({ [target.name]: target.value });
   };
 

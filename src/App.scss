@@ -22,7 +22,8 @@ body {
 }
 h1,
 h2,
-h3 {
+h3,
+h4 {
   margin-top: 0;
   margin-bottom: 0.5rem;
   font-weight: 700;
@@ -41,13 +42,16 @@ h3 {
   font-size: 1.872rem;
 }
 
+h3 {
+  font-size: 1.7rem;
+}
+
 p,
 a,
 li {
   font-size: 1.4rem;
   margin-top: 0;
   margin-bottom: 1rem;
-  font-family: "Roboto", Arial, Helvetica, sans-serif;
 }
 
 ul {
@@ -78,6 +82,10 @@ a {
 
 .text-primary {
   color: color(primary) !important;
+}
+
+.text-primary-dark {
+  color: color(primary-dark) !important;
 }
 
 .my-1 {
@@ -113,6 +121,18 @@ a {
 
   .container {
     max-width: 720px;
+  }
+}
+
+/* Medium screen */
+@media (min-width: 992px) {
+  html,
+  body {
+    font-size: 11px;
+  }
+
+  .container {
+    max-width: 960px;
   }
 }
 

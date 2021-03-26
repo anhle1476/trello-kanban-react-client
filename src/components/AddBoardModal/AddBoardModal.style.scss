@@ -1,0 +1,73 @@
+@import "../../constant.scss";
+
+.add-board-modal {
+  z-index: 20;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding-top: 5rem;
+  background-color: #000000b4;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  .modal-container {
+    width: 550px;
+  }
+}
+
+.modal-input-group {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  justify-content: start;
+  align-items: flex-start;
+  gap: 1rem;
+
+  .title-input {
+    padding: 1rem 1rem 3rem 2rem;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    .modal-close-btn {
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .modal-input-group {
+    grid-template-columns: 1fr;
+  }
+}
+
+.transparent-input {
+  border: none !important;
+  background: transparent;
+  box-shadow: none;
+  outline: none;
+  border-radius: 2px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  left: -8px;
+  line-height: 24px;
+  margin-bottom: 4px;
+  padding: 2px 8px;
+  position: relative;
+
+  &::placeholder {
+    color: #ffffffc5;
+  }
+
+  &:focus,
+  &:hover {
+    background: #ffffff62;
+  }
+}

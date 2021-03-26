@@ -1,0 +1,53 @@
+@import "../../constant.scss";
+
+.board-preview {
+  height: 90px;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &.modal-toggle div,
+  &.modal-toggle h4 {
+    pointer-events: none;
+  }
+
+  .board-info {
+    height: 100%;
+    color: white;
+    padding: 0.7rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: color(gray-trans);
+    opacity: 0.88;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &.add-board {
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+
+      .add-link {
+        margin-bottom: 0;
+        font-size: 1.3rem;
+        cursor: pointer;
+        color: color(primary-dark);
+
+        &:hover {
+          font-weight: bold;
+        }
+      }
+    }
+
+    h4 {
+      font-size: 1.35rem;
+    }
+
+    .board-status p {
+      font-size: 1rem;
+      margin-bottom: 0;
+    }
+  }
+}

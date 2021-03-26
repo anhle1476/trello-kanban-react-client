@@ -5,6 +5,7 @@ $colors: (
   gray-dark: #343a40,
   black: #000000,
   primary: #026aa7,
+  primary-dark: #172b4d,
   secondary: #adb5bd,
   success: #02b875,
   info: #17a2b8,
@@ -12,8 +13,9 @@ $colors: (
   danger: #d9534f,
   light: #f8f9fa,
   dark: #343a40,
+  dark-trans: #343a406c,
   white-trans: hsla(0, 0%, 100%, 0.3),
-  gray-trans: #868e9683,
+  gray-trans: #868e9641,
 );
 
 @function color($color-name) {
