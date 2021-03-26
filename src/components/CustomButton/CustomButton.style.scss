@@ -1,0 +1,18 @@
+@import "../../constant.scss";
+
+.btn {
+  border: none;
+  border-radius: 3px;
+  padding: 1rem 1.5rem;
+  background-color: color(primary);
+  color: color(white);
+  opacity: 0.9;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &.btn-block {
+    width: 100%;
+  }
+}

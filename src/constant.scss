@@ -1,0 +1,21 @@
+/* Custom variables  */
+$colors: (
+  white: #fff,
+  gray: #868e96,
+  gray-dark: #343a40,
+  black: #000000,
+  primary: #026aa7,
+  secondary: #adb5bd,
+  success: #02b875,
+  info: #17a2b8,
+  warning: #f0ad4e,
+  danger: #d9534f,
+  light: #f8f9fa,
+  dark: #343a40,
+  white-trans: hsla(0, 0%, 100%, 0.3),
+  gray-trans: #868e9683,
+);
+
+@function color($color-name) {
+  @return map-get($colors, $color-name);
+}
