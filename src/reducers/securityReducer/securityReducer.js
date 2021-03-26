@@ -15,8 +15,10 @@ const isTokenNotExpired = (expire) => {
 const setAxiosHeader = (token) =>
   (axios.defaults.headers.common["Authorization"] = token);
 
-const deleteAuthHeader = () =>
+const doDestroyToken = () => {
   delete axios.defaults.headers.common["Authorization"];
+  return initialState;
+};
 
 export default function securityReducer(state = initialState, action) {
   switch (action.type) {
@@ -32,13 +34,13 @@ export default function securityReducer(state = initialState, action) {
       if (isTokenNotExpired(state.user.exp)) {
         setAxiosHeader(state.token);
         return state;
-      } else {
-        deleteAuthHeader();
-        return initialState;
       }
+      if (state.token) {
+        alert("Phiên đăng nhập hết hạn, vui lòng đăng nhập lại");
+      }
+      return doDestroyToken();
     case SECURITY.DESTROY_JWT_TOKEN:
-      deleteAuthHeader();
-      return initialState;
+      return doDestroyToken();
     default:
       return state;
   }
