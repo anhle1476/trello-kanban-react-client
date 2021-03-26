@@ -59,6 +59,19 @@ a {
   color: color(primary);
 }
 
+// containers
+
+.container,
+.container-fluid {
+  width: 100%;
+  padding-right: 0.75rem;
+  padding-left: 0.75rem;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+// text utils
+
 .text-center {
   text-align: center;
 }
@@ -79,17 +92,38 @@ a {
 
 /*** Media Query ***/
 
+/* Phone */
+
+@media (min-width: 576px) {
+  html,
+  body {
+    font-size: 8px;
+  }
+  .container {
+    max-width: 540px;
+  }
+}
+
+/*  Tablet */
+@media (min-width: 768px) {
+  html,
+  body {
+    font-size: 10px;
+  }
+
+  .container {
+    max-width: 720px;
+  }
+}
+
 /* Wide screen */
 @media (min-width: 1200px) {
   html,
   body {
     font-size: 12px;
   }
-}
-/* Phone & Tablet */
-@media (max-width: 768px) {
-  html,
-  body {
-    font-size: 8px;
+
+  .container {
+    max-width: 1140px;
   }
 }

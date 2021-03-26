@@ -1,6 +1,8 @@
 import { SECURITY } from "../type";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
+import store from "../../store";
+import { finishLoading } from "../globalReducer/globalAction";
 
 const initialState = {
   token: "",
@@ -12,8 +14,11 @@ const isTokenNotExpired = (expire) => {
   return currentTime < expire;
 };
 
-const setAxiosHeader = (token) =>
-  (axios.defaults.headers.common["Authorization"] = token);
+const setAxiosHeader = (token) => {
+  console.log("Set token to header: " + token);
+  axios.defaults.headers.common["Authorization"] = token;
+  console.log(axios.defaults.headers);
+};
 
 const doDestroyToken = () => {
   delete axios.defaults.headers.common["Authorization"];

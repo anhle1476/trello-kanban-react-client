@@ -1,4 +1,4 @@
-import { SECURITY } from "../type";
+import { GLOBAL, SECURITY } from "../type";
 
 export const loginSuccess = (token) => (dispatch) => {
   dispatch({
@@ -9,6 +9,7 @@ export const loginSuccess = (token) => (dispatch) => {
 
 export const updateTokenStatus = () => (dispatch) => {
   dispatch({ type: SECURITY.UPDATE_TOKEN_STATUS });
+  dispatch({ type: GLOBAL.FINISH_LOADING });
 };
 
 export const destroyToken = () => (dispatch) => {

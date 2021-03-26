@@ -35,10 +35,7 @@ class Register extends Component {
     const { confirmPassword, errors, ...registerForm } = this.state;
     console.log(registerForm);
     try {
-      const response = await axios.post(
-        "http://localhost:8080/register",
-        registerForm
-      );
+      await axios.post("http://localhost:8080/register", registerForm);
       this.props.history.push("/login");
     } catch (ex) {
       this.setState({ errors: ex.response.data });
