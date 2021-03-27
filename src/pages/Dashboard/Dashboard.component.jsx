@@ -66,7 +66,7 @@ class Dashboard extends Component {
 
         <section className="dashboard-section">
           <h3 className="section-title">
-            <i className="far fa-clock"></i> Cập nhật gần đây nhất
+            <i className="far fa-clock"></i> Cập nhật gần đây
           </h3>
           <div className="section-previews">
             {boards.map((board) => (

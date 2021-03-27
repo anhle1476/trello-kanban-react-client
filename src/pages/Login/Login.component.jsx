@@ -42,35 +42,37 @@ class Login extends Component {
   render() {
     const { email, password, errors } = this.state;
     return (
-      <div className="sign-in">
-        <form className="sign-in-form" onSubmit={this.handleSubmit}>
-          <h3 className="text-primary">Đăng nhập</h3>
-          <FormInput
-            value={email}
-            type="email"
-            name="email"
-            label="Email"
-            handleChange={this.handleChange}
-            required
-          />
-          <FormInput
-            value={password}
-            type="password"
-            name="password"
-            label="Mật khẩu"
-            handleChange={this.handleChange}
-            required
-          />
-          {errors && <p className="error-feedback">{errors}</p>}
+      <div className="container">
+        <div className="sign-in">
+          <form className="sign-in-form" onSubmit={this.handleSubmit}>
+            <h2 className="text-primary">Đăng nhập</h2>
+            <FormInput
+              value={email}
+              type="email"
+              name="email"
+              label="Email"
+              handleChange={this.handleChange}
+              required
+            />
+            <FormInput
+              value={password}
+              type="password"
+              name="password"
+              label="Mật khẩu"
+              handleChange={this.handleChange}
+              required
+            />
+            {errors && <p className="error-feedback">{errors}</p>}
 
-          <CustomButton customClass="btn-block my-2" type="submit">
-            Đăng nhập
-          </CustomButton>
+            <CustomButton customClass="btn-block my-2" type="submit">
+              Đăng nhập
+            </CustomButton>
 
-          <p className="my-2 text-center">
-            Chưa có tải khoản? <Link to="/register">Đăng ký ngay</Link>
-          </p>
-        </form>
+            <p className="my-2 text-center">
+              Chưa có tài khoản? <Link to="/register">Đăng ký ngay</Link>
+            </p>
+          </form>
+        </div>
       </div>
     );
   }

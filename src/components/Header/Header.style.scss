@@ -1,7 +1,8 @@
 @import "../../constant.scss";
 .header {
   display: grid;
-  position: sticky;
+  position: absolute;
+  width: 100vw;
   top: 0;
   grid-template-columns: repeat(3, 1fr);
   background-color: color(primary);
@@ -9,22 +10,8 @@
   padding: 0.5rem;
   z-index: 10;
 
-  &.header-board {
-    background-color: color(gray-trans);
-  }
-
-  .btn {
-    background-color: color(white-trans);
-    padding: 0.5rem 0.7rem;
-    border-radius: 3px;
-    color: color(white);
-    opacity: 0.9;
-    margin: 0 0.3rem;
-    font-weight: 600;
-
-    &:hover {
-      opacity: 1;
-    }
+  &.header-trans {
+    background-color: #6b6b6b73;
   }
 
   .logo {

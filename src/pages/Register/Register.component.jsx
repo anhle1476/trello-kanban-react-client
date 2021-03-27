@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { Component } from "react";
 import CustomButton from "../../components/CustomButton/CustomButton.component";
 import FormInput from "../../components/FormInput/FormInput.component";
+import { Link } from "react-router-dom";
 
 import "./Register.style.scss";
 
@@ -45,49 +46,54 @@ class Register extends Component {
   render() {
     const { errors, email, fullname, password, confirmPassword } = this.state;
     return (
-      <div className="register">
-        <form className="register-form" onSubmit={this.handleSubmit}>
-          <h3 className="text-primary">Đăng ký tài khoản</h3>
-          <FormInput
-            value={email}
-            type="email"
-            name="email"
-            label="Email"
-            handleChange={this.handleChange}
-            errors={errors.email}
-            required
-          />
-          <FormInput
-            value={fullname}
-            name="fullname"
-            label="Họ và tên"
-            handleChange={this.handleChange}
-            errors={errors.fullname}
-            required
-          />
-          <FormInput
-            value={password}
-            type="password"
-            name="password"
-            label="Mật khẩu"
-            handleChange={this.handleChange}
-            errors={errors.password}
-            required
-          />
-          <FormInput
-            value={confirmPassword}
-            type="password"
-            name="confirmPassword"
-            label="Xác nhận mật khẩu"
-            handleChange={this.handleChange}
-            errors={errors.confirmPassword}
-            required
-          />
+      <div className="container">
+        <div className="register">
+          <form className="register-form" onSubmit={this.handleSubmit}>
+            <h2 className="text-primary">Đăng ký tài khoản</h2>
+            <FormInput
+              value={email}
+              type="email"
+              name="email"
+              label="Email"
+              handleChange={this.handleChange}
+              errors={errors.email}
+              required
+            />
+            <FormInput
+              value={fullname}
+              name="fullname"
+              label="Họ và tên"
+              handleChange={this.handleChange}
+              errors={errors.fullname}
+              required
+            />
+            <FormInput
+              value={password}
+              type="password"
+              name="password"
+              label="Mật khẩu"
+              handleChange={this.handleChange}
+              errors={errors.password}
+              required
+            />
+            <FormInput
+              value={confirmPassword}
+              type="password"
+              name="confirmPassword"
+              label="Xác nhận mật khẩu"
+              handleChange={this.handleChange}
+              errors={errors.confirmPassword}
+              required
+            />
 
-          <CustomButton customClass="btn-block my-2" type="submit">
-            Đăng ký
-          </CustomButton>
-        </form>
+            <CustomButton customClass="btn-block my-2" type="submit">
+              Đăng ký
+            </CustomButton>
+            <p className="my-2 text-center">
+              Đã có tài khoản? <Link to="/login">Đăng nhập ngay</Link>
+            </p>
+          </form>
+        </div>
       </div>
     );
   }
