@@ -9,6 +9,10 @@
   font-weight: bold;
   opacity: 0.9;
 
+  &.add-btn {
+    background-color: color(success);
+  }
+
   &:disabled {
     background-color: color(white);
     color: color(gray-dark);

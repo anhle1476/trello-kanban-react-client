@@ -54,6 +54,7 @@ class AddBoardModal extends Component {
                 </div>
                 <CustomButton
                   disabled={titleSize < 4 || titleSize > 25}
+                  customClass="add-btn"
                   type="submit"
                 >
                   Tạo bảng

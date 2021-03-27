@@ -1,20 +1,29 @@
 import React, { Component } from "react";
 import "./KanbanBoard.style.scss";
 import Loader from "../../components/Loader/Loader.component";
-import axios from "axios";
+import CardColumn from "../../components/CardColumn/CardColumn.component";
+import TransparentForm from "../../components/TransparentForm/TransparentForm.component";
+import {
+  getBoardById,
+  updateBoardTitle,
+  updateColumnTitle,
+  addColumn,
+} from "../../request";
+import HiddenAddForm from "../../components/HiddenAddForm/HiddenAddForm.component";
 
 class KanbanBoard extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      id: 2,
+      id: 0,
       title: "",
       color: "#f00",
       status: {},
       cardColumns: [],
       isFetching: true,
       currentTitle: "",
+      openedAddForm: -1,
     };
   }
 
@@ -24,17 +33,19 @@ class KanbanBoard extends Component {
 
   fetchCurrentBoard = async (boardId) => {
     try {
-      const response = await axios.get(
-        `http://localhost:8080/api/v1/boards/${boardId}`
-      );
+      const response = await getBoardById(boardId);
 
       this.setState({
         isFetching: false,
+        openedAddForm: -1,
         currentTitle: response.data.title,
         ...response.data,
       });
     } catch (ex) {
       console.log(ex.response.data);
+      this.setState({
+        isFetching: false,
+      });
     }
   };
 
@@ -42,28 +53,55 @@ class KanbanBoard extends Component {
     this.setState({ title: target.value });
   };
 
-  handleUpdateTitle = async (e) => {
-    e.preventDefault();
-    if (e.type === "submit") {
-      e.target[0].blur();
-      return;
-    }
+  handleTitleSubmit = async () => {
     const { title, currentTitle, id, color } = this.state;
     if (title === currentTitle) return;
     try {
-      await axios.put(`http://localhost:8080/api/v1/boards/${id}`, {
+      await updateBoardTitle(id, {
         id,
-        title: title,
-        color: color,
+        title,
+        color,
       });
-      this.setState({ ...this.state, currentTitle: title });
+      this.setState({ currentTitle: title });
+    } catch (ex) {
+      console.log(ex.response);
+    }
+  };
+
+  handleColumnTitleChange = (e, id) => {
+    const columns = this.state.cardColumns.map((col) => {
+      if (col.id === id) col.title = e.target.value;
+      return col;
+    });
+    this.setState({ cardColumns: columns });
+  };
+
+  handleColumnTitleSubmit = async (id) => {
+    const { cards, status, ...formData } = this.state.cardColumns.find(
+      (col) => col.id === id
+    );
+    try {
+      await updateColumnTitle(this.state.id, id, formData);
+    } catch (ex) {
+      console.log(ex.response);
+    }
+  };
+
+  handleAddColumn = async (title) => {
+    try {
+      const response = await addColumn(this.state.id, title);
+      const newColumn = response.data;
+      newColumn.cards = [];
+      this.setState({
+        cardColumns: [...this.state.cardColumns, newColumn],
+      });
     } catch (ex) {
       console.log(ex.response);
     }
   };
 
   render() {
-    const { id, title, color, status, cardColumns, isFetching } = this.state;
+    const { title, color, cardColumns, isFetching } = this.state;
     if (isFetching) {
       return <Loader />;
     }
@@ -71,16 +109,36 @@ class KanbanBoard extends Component {
       <div className="board-container" style={{ backgroundColor: color }}>
         <section className="board-info">
           <h2 className="box white-box p-0">
-            <form onSubmit={this.handleUpdateTitle}>
-              <input
-                type="text"
-                onChange={this.handleTitleChange}
-                onBlur={this.handleUpdateTitle}
-                className="box-input"
-                value={title}
-              />
-            </form>
+            <TransparentForm
+              value={title}
+              handleChange={this.handleTitleChange}
+              handleChangeComplete={this.handleTitleSubmit}
+            />
           </h2>
+        </section>
+        <section className="board-content">
+          <div className="board-columns-container">
+            {cardColumns.map((col) => (
+              <CardColumn
+                key={col.id}
+                handleColumnTitleChange={this.handleColumnTitleChange}
+                handleColumnTitleSubmit={this.handleColumnTitleSubmit}
+                {...col}
+              />
+            ))}
+            <div className="column-container">
+              <div className="box add-column">
+                <HiddenAddForm
+                  handleSubmit={this.handleAddColumn}
+                  placeholder="Nhập tiêu đề cột..."
+                >
+                  <p className="p-1">
+                    <i class="fas fa-sm fa-plus"></i> Thêm cột mới
+                  </p>
+                </HiddenAddForm>
+              </div>
+            </div>
+          </div>
         </section>
       </div>
     );

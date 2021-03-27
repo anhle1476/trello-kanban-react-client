@@ -1,0 +1,59 @@
+@import "../../constant.scss";
+
+.column {
+  background-color: color(light);
+  color: color(primary-dark);
+  border-radius: 3px;
+  padding: 0.5rem;
+  max-height: 97%;
+  display: flex;
+  flex-direction: column;
+
+  .column-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0 0.5rem 1rem;
+
+    .column-option {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      border-radius: 5px;
+      font-size: 1.3rem;
+      color: color(gray);
+      cursor: pointer;
+      background-color: transparent;
+
+      &:hover {
+        color: color(primary-dark);
+        background-color: color(gray-trans);
+      }
+    }
+  }
+
+  .column-body {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex: 1 1 auto;
+  }
+
+  .column-footer {
+    padding: 1rem;
+
+    .add-card-btn {
+      opacity: 0.8;
+      cursor: pointer;
+      width: 100%;
+      font-size: 1rem;
+      padding: 1rem;
+      margin-bottom: 0;
+
+      &:hover {
+        background-color: color(gray-trans);
+      }
+    }
+  }
+}

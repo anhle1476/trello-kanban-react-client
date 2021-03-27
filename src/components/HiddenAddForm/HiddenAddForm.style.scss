@@ -1,0 +1,42 @@
+@import "../../constant.scss";
+
+.hidden-add-form {
+  width: 100%;
+  height: 100%;
+
+  .hidden-part {
+    background-color: color(light);
+    border-radius: 5px;
+    padding: 0.5rem;
+    transition: all 0.2s ease-in;
+
+    .hidden-part-input {
+      display: block;
+      width: 100%;
+      border: none;
+      color: color(primary-dark);
+      outline: none;
+      padding: 1rem;
+      font-size: 1.3rem;
+
+      &:focus {
+        outline: 2px solid color(primary);
+      }
+    }
+
+    .hidden-part-btn-group {
+      display: flex;
+      align-items: center;
+
+      .hidden-part-toggle-btn {
+        color: color(gray-dark);
+        font-size: 2rem;
+        padding: 1rem;
+      }
+    }
+  }
+
+  .show-part {
+    transition: all 0.2s ease-in;
+  }
+}

@@ -2,29 +2,47 @@
 
 .board-container {
   height: 100vh;
+  width: 100vw;
   padding-top: 5rem;
   color: color(white);
+  display: flex;
+  flex-direction: column;
 
   .board-info {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+
+  .board-content {
+    position: relative;
+    flex-grow: 1;
   }
 }
 
-.box-input {
-  height: 100%;
-  padding: 0.5rem 1rem;
-  background-color: transparent;
-  color: color(white);
-  font-weight: bold;
-  font-size: 2rem;
-  border: none;
-  border-radius: 5px;
-  outline: none;
+.board-columns-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
 
-  &:focus {
-    background-color: color(white);
-    color: color(primary-dark);
-    border: 2px solid color(primary-dark);
+  .column-container {
+    user-select: none;
+    height: 100%;
+    display: inline-block;
+    vertical-align: top;
+    width: 272px;
+    margin: 0 0.5rem;
+
+    .add-column {
+      padding: 0;
+      font-size: 1.5rem;
+      font-weight: normal;
+      cursor: pointer;
+    }
   }
 }

@@ -4,9 +4,13 @@ import "./ErrorPage.style.scss";
 
 function ErrorPage() {
   return (
-    <div>
-      <h1>Error</h1>
-      <Link to="/">Trở về trang chủ</Link>
+    <div className="container">
+      <div className="error-container">
+        <div>
+          <h1>Trang bạn yêu cầu không tồn tại</h1>
+          <Link to="/">Trở về trang chủ</Link>
+        </div>
+      </div>
     </div>
   );
 }

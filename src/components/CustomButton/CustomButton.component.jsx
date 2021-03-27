@@ -1,9 +1,14 @@
 import "./CustomButton.style.scss";
 
-function CustomButton({ children, handleClick, customClass, ...btnProps }) {
+function CustomButton({
+  children,
+  handleClick,
+  customClass = "",
+  ...btnProps
+}) {
   return (
     <button
-      className={`btn ${customClass ? customClass : ""}`}
+      className={`btn ${customClass}`}
       {...btnProps}
       onClick={handleClick}
     >
