@@ -7,19 +7,21 @@ import Header from "./components/Header/Header.component";
 import Login from "./pages/Login/Login.component";
 import Register from "./pages/Register/Register.component";
 import Dashboard from "./pages/Dashboard/Dashboard.component";
-import Loader from "./components/loader/Loader.component";
+import Loader from "./components/Loader/Loader.component";
+import KanbanBoard from "./pages/KanbanBoard/KanbanBoard.component";
+import ErrorPage from "./pages/ErrorPage/ErrorPage.component";
 
 const App = ({ isReady }) => (
   <div className="App">
+    <Header />
     {isReady ? (
-      <>
-        <Header />
-        <Switch>
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/dashboard" component={Dashboard} />
-        </Switch>
-      </>
+      <Switch>
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/register" component={Register} />
+        <Route exact path="/dashboard" component={Dashboard} />
+        <Route exact path="/boards/:boardId" component={KanbanBoard} />
+        <Route path="/" component={ErrorPage} />
+      </Switch>
     ) : (
       <Loader></Loader>
     )}
