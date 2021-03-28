@@ -16,7 +16,8 @@ class Header extends Component {
             <i className="fas fa-home"></i>
           </Link>
           <Link className="box" to="/dashboard">
-            <i className="fab fa-trello"></i> Dashboard
+            <i className="fab fa-trello"></i>
+            <span className="box-details"> Dashboard</span>
           </Link>
         </div>
         <div className="logo">
@@ -26,7 +27,8 @@ class Header extends Component {
         </div>
         <div className="right-box">
           <Link className="box" to="/login">
-            <i className="fas fa-sign-in-alt"></i> Đăng nhập
+            <i className="fas fa-sign-in-alt"></i>
+            <span className="box-details"> Đăng nhập</span>
           </Link>
         </div>
       </div>

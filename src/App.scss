@@ -129,6 +129,10 @@ a {
   &:hover {
     opacity: 1;
   }
+
+  .box-details {
+    display: none;
+  }
 }
 
 /*** Media Query ***/
@@ -142,6 +146,10 @@ a {
   }
   .container {
     max-width: 540px;
+  }
+
+  .box .box-details {
+    display: inline;
   }
 }
 

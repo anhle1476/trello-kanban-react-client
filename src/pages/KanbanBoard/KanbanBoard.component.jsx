@@ -24,7 +24,6 @@ class KanbanBoard extends Component {
       cardColumns: [],
       isFetching: true,
       currentTitle: "",
-      openedAddForm: -1,
     };
   }
 
@@ -38,7 +37,6 @@ class KanbanBoard extends Component {
 
       this.setState({
         isFetching: false,
-        openedAddForm: -1,
         currentTitle: response.data.title,
         ...response.data,
       });
@@ -65,7 +63,7 @@ class KanbanBoard extends Component {
       });
       this.setState({ currentTitle: title });
     } catch (ex) {
-      console.log(ex.response);
+      console.log(ex);
     }
   };
 
@@ -84,7 +82,7 @@ class KanbanBoard extends Component {
     try {
       await updateColumnTitle(this.state.id, id, formData);
     } catch (ex) {
-      console.log(ex.response);
+      console.log(ex);
     }
   };
 
@@ -97,7 +95,7 @@ class KanbanBoard extends Component {
         cardColumns: [...this.state.cardColumns, newColumn],
       });
     } catch (ex) {
-      console.log(ex.response);
+      console.log(ex);
     }
   };
 
@@ -134,15 +132,17 @@ class KanbanBoard extends Component {
         </section>
         <section className="board-content">
           <div className="board-columns-container">
-            {cardColumns.map((col) => (
-              <CardColumn
-                key={col.id}
-                handleColumnTitleChange={this.handleColumnTitleChange}
-                handleColumnTitleSubmit={this.handleColumnTitleSubmit}
-                handleAddCard={this.handleAddCard}
-                {...col}
-              />
-            ))}
+            {cardColumns
+              .filter((col) => col.status.enabled)
+              .map((col) => (
+                <CardColumn
+                  key={col.id}
+                  handleColumnTitleChange={this.handleColumnTitleChange}
+                  handleColumnTitleSubmit={this.handleColumnTitleSubmit}
+                  handleAddCard={this.handleAddCard}
+                  {...col}
+                />
+              ))}
             <div className="column-container">
               <div className="box add-column">
                 <HiddenAddForm
