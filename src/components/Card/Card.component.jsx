@@ -1,10 +1,13 @@
+import { formatDate } from "../../utils/dateUtils";
+
 import "./Card.style.scss";
 
-function Card({ title, label, details, startDate, dueDate }) {
+function Card({ card, toggleEditCardModal }) {
+  let { title, label, details, startDate, dueDate } = card;
   label = !label ? "#fff" : label;
   details = !details ? "" : details;
   return (
-    <div className="card-container">
+    <div className="card-container" onClick={() => toggleEditCardModal(card)}>
       <div className="card-label" style={{ backgroundColor: label }}>
         {" "}
       </div>
@@ -21,7 +24,7 @@ function Card({ title, label, details, startDate, dueDate }) {
               className="symbols symbols-pill start-date"
               title="Ngày bắt đầu"
             >
-              <i className="fas fa-hourglass-start"></i> {startDate.slice(0, 5)}
+              <i className="fas fa-hourglass-start"></i> {formatDate(startDate)}
             </span>
           )}
           {dueDate && (
@@ -29,7 +32,7 @@ function Card({ title, label, details, startDate, dueDate }) {
               className="symbols symbols-pill due-date"
               title="Ngày kết thúc"
             >
-              <i className="fas fa-hourglass-end"></i> {dueDate.slice(0, 5)}
+              <i className="fas fa-hourglass-end"></i> {formatDate(dueDate)}
             </span>
           )}
         </div>

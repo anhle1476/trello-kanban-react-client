@@ -12,6 +12,7 @@ import {
   disableColumn,
 } from "../../utils/request";
 import HiddenAddForm from "../../components/HiddenAddForm/HiddenAddForm.component";
+import EditCardModal from "../../components/EditCardModal/EditCardModal.component";
 
 class KanbanBoard extends Component {
   constructor(props) {
@@ -25,6 +26,7 @@ class KanbanBoard extends Component {
       cardColumns: [],
       isFetching: true,
       currentTitle: "",
+      editingCard: null,
     };
   }
 
@@ -38,6 +40,7 @@ class KanbanBoard extends Component {
 
       this.setState({
         isFetching: false,
+        editingCard: null,
         currentTitle: response.data.title,
         ...response.data,
       });
@@ -130,13 +133,23 @@ class KanbanBoard extends Component {
     }
   };
 
+  handleToggleModal = (editingCard) => {
+    this.setState({ editingCard: editingCard });
+  };
+
   render() {
-    const { title, color, cardColumns, isFetching } = this.state;
+    const { title, color, cardColumns, isFetching, editingCard } = this.state;
     if (isFetching) {
       return <Loader />;
     }
     return (
       <div className="board-container" style={{ backgroundColor: color }}>
+        {editingCard && (
+          <EditCardModal
+            editingCard={editingCard}
+            toggleModal={this.handleToggleModal}
+          />
+        )}
         <section className="board-info">
           <h2 className="box white-box p-0">
             <TransparentForm
@@ -157,6 +170,7 @@ class KanbanBoard extends Component {
                   handleColumnTitleSubmit={this.handleColumnTitleSubmit}
                   handleArchiveColumn={this.handleArchiveColumn}
                   handleAddCard={this.handleAddCard}
+                  toggleEditCardModal={this.handleToggleModal}
                   {...col}
                 />
               ))}

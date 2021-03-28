@@ -11,6 +11,7 @@ function CardColumn({
   handleColumnTitleSubmit,
   handleArchiveColumn,
   handleAddCard,
+  toggleEditCardModal,
 }) {
   return (
     <div className="column-container">
@@ -33,7 +34,11 @@ function CardColumn({
           {cards
             .filter((card) => card.status.enabled)
             .map((card) => (
-              <Card key={card.id} {...card} />
+              <Card
+                toggleEditCardModal={toggleEditCardModal}
+                key={card.id}
+                card={card}
+              />
             ))}
         </div>
         <div className="column-footer">

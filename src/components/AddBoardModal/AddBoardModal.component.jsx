@@ -33,7 +33,7 @@ class AddBoardModal extends Component {
     const { toggleModal } = this.props;
     const titleSize = title.trim().length;
     return (
-      <ModalWrapper handleToggle={toggleModal}>
+      <ModalWrapper handleToggle={toggleModal} width={550}>
         <form className="add-board-form" onSubmit={this.handleSubmit}>
           <div className="add-board-input-group">
             <div>
