@@ -29,8 +29,7 @@ class Dashboard extends Component {
     }
   };
 
-  toggleModal = ({ target }) => {
-    if (!target.classList.contains("modal-toggle")) return;
+  toggleModal = () => {
     this.setState({ showModal: !this.state.showModal });
   };
 

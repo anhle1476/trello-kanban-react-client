@@ -32,7 +32,8 @@ class AddBoardModal extends Component {
     const { toggleModal } = this.props;
     const titleSize = title.trim().length;
     return (
-      <div className="add-board-modal modal-toggle" onClick={toggleModal}>
+      <div className="add-board-modal">
+        <div className="modal-toggle-cover" onClick={toggleModal}></div>
         <div className="modal-container">
           <form className="modal-form" onSubmit={this.handleSubmit}>
             <div className="modal-input-group">
@@ -45,10 +46,7 @@ class AddBoardModal extends Component {
                     onChange={this.handleTitleChange}
                     value={title}
                   ></input>
-                  <span
-                    onClick={toggleModal}
-                    className="modal-close-btn modal-toggle"
-                  >
+                  <span onClick={toggleModal} className="modal-close-btn">
                     &#10005;
                   </span>
                 </div>

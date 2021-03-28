@@ -11,7 +11,7 @@ function BoardPreview({
 }) {
   return (
     <div
-      className={`board-preview ${addBoard ? "modal-toggle" : ""}`}
+      className="board-preview"
       style={{ backgroundColor: color }}
       onClick={(e) => onClick(e, id)}
     >
