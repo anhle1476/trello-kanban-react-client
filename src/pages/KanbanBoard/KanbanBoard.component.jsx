@@ -8,6 +8,7 @@ import {
   updateBoardTitle,
   updateColumnTitle,
   addColumn,
+  addCard,
 } from "../../request";
 import HiddenAddForm from "../../components/HiddenAddForm/HiddenAddForm.component";
 
@@ -100,6 +101,21 @@ class KanbanBoard extends Component {
     }
   };
 
+  handleAddCard = async (title, colId) => {
+    try {
+      const response = await addCard(this.state.id, colId, title);
+      const columns = this.state.cardColumns.map((col) => {
+        if (col.id === colId) {
+          col.cards.push(response.data);
+        }
+        return col;
+      });
+      this.setState({ cardColumns: columns });
+    } catch (ex) {
+      console.log(ex);
+    }
+  };
+
   render() {
     const { title, color, cardColumns, isFetching } = this.state;
     if (isFetching) {
@@ -123,6 +139,7 @@ class KanbanBoard extends Component {
                 key={col.id}
                 handleColumnTitleChange={this.handleColumnTitleChange}
                 handleColumnTitleSubmit={this.handleColumnTitleSubmit}
+                handleAddCard={this.handleAddCard}
                 {...col}
               />
             ))}
@@ -133,7 +150,7 @@ class KanbanBoard extends Component {
                   placeholder="Nhập tiêu đề cột..."
                 >
                   <p className="p-1">
-                    <i class="fas fa-sm fa-plus"></i> Thêm cột mới
+                    <i className="fas fa-sm fa-plus"></i> Thêm cột mới
                   </p>
                 </HiddenAddForm>
               </div>

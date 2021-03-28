@@ -15,3 +15,8 @@ export const updateColumnTitle = (boardId, columnId, data) => {
   const requestUrl = `http://localhost:8080/api/v1/boards/${boardId}/columns/${columnId}`;
   return axios.put(requestUrl, data);
 };
+
+export const addCard = (boardId, colId, title) => {
+  const requestUrl = `http://localhost:8080/api/v1/boards/${boardId}/columns/${colId}/cards`;
+  return axios.post(requestUrl, { title });
+};

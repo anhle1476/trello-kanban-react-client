@@ -9,8 +9,8 @@ function CardColumn({
   cards,
   handleColumnTitleChange,
   handleColumnTitleSubmit,
+  handleAddCard,
 }) {
-  // <i className="fas fa-ellipsis-h"></i>
   return (
     <div className="column-container">
       <div className="column">
@@ -31,7 +31,12 @@ function CardColumn({
           ))}
         </div>
         <div className="column-footer">
-          <HiddenAddForm id={id} placeholder="Nhập tiêu đề thẻ...">
+          <HiddenAddForm
+            type="textarea"
+            id={id}
+            handleSubmit={handleAddCard}
+            placeholder="Nhập tiêu đề thẻ..."
+          >
             <p className="add-card-btn">
               <i className="fas fa-sm fa-plus"></i> Thêm thẻ mới
             </p>

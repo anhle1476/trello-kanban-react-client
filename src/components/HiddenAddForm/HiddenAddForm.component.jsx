@@ -29,20 +29,30 @@ class HiddenAddForm extends Component {
   };
 
   render() {
-    const { children, placeholder } = this.props;
+    const { children, placeholder, type } = this.props;
     const { isShow, title } = this.state;
     return (
       <div className="hidden-add-form">
         {isShow ? (
           <div className="hidden-part">
             <form onSubmit={this.handleSubmitForm}>
-              <input
-                type="text"
-                className="hidden-part-input"
-                placeholder={placeholder}
-                value={title}
-                onChange={this.handleChange}
-              />
+              {type === "textarea" ? (
+                <textarea
+                  className="hidden-part-input"
+                  placeholder={placeholder}
+                  value={title}
+                  onChange={this.handleChange}
+                ></textarea>
+              ) : (
+                <input
+                  type="text"
+                  className="hidden-part-input"
+                  placeholder={placeholder}
+                  value={title}
+                  onChange={this.handleChange}
+                />
+              )}
+
               <div className="hidden-part-btn-group">
                 <CustomButton
                   type="submit"
