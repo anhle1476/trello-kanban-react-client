@@ -2,9 +2,9 @@ import "./Dashboard.style.scss";
 
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import axios from "axios";
 import BoardPreview from "../../components/BoardPreview/BoardPreview.component";
 import AddBoardModal from "../../components/AddBoardModal/AddBoardModal.component";
+import { getAllBoardsInfo, createBoard } from "../../utils/request";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -22,7 +22,7 @@ class Dashboard extends Component {
 
   fetchBoardData = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/v1/boards");
+      const response = await getAllBoardsInfo();
       this.setState({ boards: response.data });
     } catch (ex) {
       console.log(ex.response.data);
@@ -39,10 +39,7 @@ class Dashboard extends Component {
 
   handleAddBoard = async (addForm) => {
     try {
-      const response = await axios.post(
-        "http://localhost:8080/api/v1/boards",
-        addForm
-      );
+      const response = createBoard(addForm);
       this.setState({
         boards: [...this.state.boards, response.data],
         showModal: false,

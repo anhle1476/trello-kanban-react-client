@@ -9,7 +9,8 @@ import {
   updateColumnTitle,
   addColumn,
   addCard,
-} from "../../request";
+  disableColumn,
+} from "../../utils/request";
 import HiddenAddForm from "../../components/HiddenAddForm/HiddenAddForm.component";
 
 class KanbanBoard extends Component {
@@ -99,6 +100,21 @@ class KanbanBoard extends Component {
     }
   };
 
+  handleArchiveColumn = async (columnId) => {
+    if (!window.confirm("Bạn có chắc chắn xóa cột này không?")) return;
+    try {
+      await disableColumn(this.state.id, columnId);
+      this.setState({
+        cardColumns: this.state.cardColumns.map((col) => {
+          if (col.id === columnId) col.status.enabled = false;
+          return col;
+        }),
+      });
+    } catch (ex) {
+      console.log(ex);
+    }
+  };
+
   handleAddCard = async (title, colId) => {
     try {
       const response = await addCard(this.state.id, colId, title);
@@ -139,6 +155,7 @@ class KanbanBoard extends Component {
                   key={col.id}
                   handleColumnTitleChange={this.handleColumnTitleChange}
                   handleColumnTitleSubmit={this.handleColumnTitleSubmit}
+                  handleArchiveColumn={this.handleArchiveColumn}
                   handleAddCard={this.handleAddCard}
                   {...col}
                 />

@@ -9,6 +9,7 @@ function CardColumn({
   cards,
   handleColumnTitleChange,
   handleColumnTitleSubmit,
+  handleArchiveColumn,
   handleAddCard,
 }) {
   return (
@@ -21,14 +22,19 @@ function CardColumn({
             handleChangeComplete={() => handleColumnTitleSubmit(id)}
             customClass="primary"
           />
-          <span className="column-option">
+          <span
+            className="column-option"
+            onClick={() => handleArchiveColumn(id)}
+          >
             <i className="fas fa-archive"></i>
           </span>
         </div>
         <div className="column-body">
-          {cards.map((card) => (
-            <Card key={card.id} {...card} />
-          ))}
+          {cards
+            .filter((card) => card.status.enabled)
+            .map((card) => (
+              <Card key={card.id} {...card} />
+            ))}
         </div>
         <div className="column-footer">
           <HiddenAddForm
