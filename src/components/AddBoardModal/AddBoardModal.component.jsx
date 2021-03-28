@@ -3,6 +3,7 @@ import "./AddBoardModal.style.scss";
 import React, { Component } from "react";
 import CustomButton from "../CustomButton/CustomButton.component";
 import { CirclePicker } from "react-color";
+import ModalWrapper from "../ModalWrapper/ModalWrapper.component";
 
 class AddBoardModal extends Component {
   constructor(props) {
@@ -32,37 +33,40 @@ class AddBoardModal extends Component {
     const { toggleModal } = this.props;
     const titleSize = title.trim().length;
     return (
-      <div className="add-board-modal">
-        <div className="modal-toggle-cover" onClick={toggleModal}></div>
-        <div className="modal-container">
-          <form className="modal-form" onSubmit={this.handleSubmit}>
-            <div className="modal-input-group">
-              <div>
-                <div className="title-input" style={{ backgroundColor: color }}>
-                  <input
-                    className="transparent-input"
-                    placeholder="Thêm tiêu đề"
-                    name="title"
-                    onChange={this.handleTitleChange}
-                    value={title}
-                  ></input>
-                  <span onClick={toggleModal} className="modal-close-btn">
-                    &#10005;
-                  </span>
-                </div>
-                <CustomButton
-                  disabled={titleSize < 4 || titleSize > 25}
-                  customClass="add-btn"
-                  type="submit"
+      <ModalWrapper handleToggle={toggleModal}>
+        <form className="add-board-form" onSubmit={this.handleSubmit}>
+          <div className="add-board-input-group">
+            <div>
+              <div
+                className="add-board-title-input"
+                style={{ backgroundColor: color }}
+              >
+                <input
+                  className="transparent-input"
+                  placeholder="Thêm tiêu đề"
+                  name="title"
+                  onChange={this.handleTitleChange}
+                  value={title}
+                ></input>
+                <span
+                  onClick={toggleModal}
+                  className="add-board-modal-close-btn"
                 >
-                  Tạo bảng
-                </CustomButton>
+                  &#10005;
+                </span>
               </div>
-              <CirclePicker color={color} onChange={this.handleColorChange} />
+              <CustomButton
+                disabled={titleSize < 4 || titleSize > 25}
+                customClass="add-btn"
+                type="submit"
+              >
+                Tạo bảng
+              </CustomButton>
             </div>
-          </form>
-        </div>
-      </div>
+            <CirclePicker color={color} onChange={this.handleColorChange} />
+          </div>
+        </form>
+      </ModalWrapper>
     );
   }
 }

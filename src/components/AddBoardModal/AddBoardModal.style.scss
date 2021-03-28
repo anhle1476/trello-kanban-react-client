@@ -1,41 +1,13 @@
 @import "../../constant.scss";
 
-.add-board-modal {
-  z-index: 20;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  padding-top: 5rem;
-  background-color: #000000b4;
-
-  .modal-toggle-cover {
-    background-color: transparent;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 21;
-  }
-
-  .modal-container {
-    position: relative;
-    z-index: 22;
-    margin: 5rem auto;
-    width: 550px;
-  }
-}
-
-.modal-input-group {
+.add-board-input-group {
   display: grid;
   grid-template-columns: 2fr 3fr;
   justify-content: start;
   align-items: flex-start;
   gap: 1rem;
 
-  .title-input {
+  .add-board-title-input {
     padding: 1rem 1rem 3rem 2rem;
     border-radius: 5px;
     margin-bottom: 1rem;
@@ -43,7 +15,7 @@
     justify-content: space-between;
     align-items: flex-start;
 
-    .modal-close-btn {
+    .add-board-modal-close-btn {
       color: white;
       font-size: 1.5rem;
       cursor: pointer;
