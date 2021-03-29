@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./KanbanBoard.style.scss";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import Loader from "../../components/Loader/Loader.component";
 import CardColumn from "../../components/CardColumn/CardColumn.component";
 import TransparentForm from "../../components/TransparentForm/TransparentForm.component";
@@ -22,6 +23,11 @@ import {
   disableColumnConfirm,
   disableCardConfirm,
 } from "../../utils/boardEditingUtils";
+import {
+  TYPE,
+  getRemappedColumns,
+  remapColumnOrdersAndGetDifference,
+} from "../../utils/dragAndDropUtils";
 import HiddenAddForm from "../../components/HiddenAddForm/HiddenAddForm.component";
 import EditCardModal from "../../components/EditCardModal/EditCardModal.component";
 
@@ -175,6 +181,23 @@ class KanbanBoard extends Component {
     });
   };
 
+  onDragEnd = (result) => {
+    if (result.type === TYPE.COLUMNS) {
+      const mapped = getRemappedColumns(this.state.cardColumns, result);
+      console.log(
+        mapped.map((col) => col.id + ":" + col.columnOrder).join("--")
+      );
+      const differ = remapColumnOrdersAndGetDifference(mapped);
+      console.log(
+        mapped.map((col) => col.id + ":" + col.columnOrder).join("--")
+      );
+      this.setState({ cardColumns: mapped });
+      console.log(differ);
+    } else {
+      console.log(result);
+    }
+  };
+
   render() {
     const { title, color, cardColumns, isFetching, editingCard } = this.state;
     if (isFetching) {
@@ -201,33 +224,49 @@ class KanbanBoard extends Component {
           </h2>
         </section>
         <section className="board-content">
-          <div className="board-columns-container">
-            {cardColumns
-              .filter((col) => col.status.enabled)
-              .map((col) => (
-                <CardColumn
-                  key={col.id}
-                  handleColumnTitleChange={this.handleColumnTitleChange}
-                  handleColumnTitleSubmit={this.handleColumnTitleSubmit}
-                  handleDisableColumn={this.handleDisableColumn}
-                  handleAddCard={this.handleAddCard}
-                  toggleEditCardModal={this.handleToggleModal}
-                  {...col}
-                />
-              ))}
-            <div className="column-container">
-              <div className="box add-column">
-                <HiddenAddForm
-                  handleSubmit={this.handleAddColumn}
-                  placeholder="Nhập tiêu đề cột..."
+          <DragDropContext onDragEnd={this.onDragEnd}>
+            <Droppable
+              droppableId="all-columns"
+              direction="horizontal"
+              type={TYPE.COLUMNS}
+            >
+              {(provided) => (
+                <div
+                  className="board-columns-container"
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
                 >
-                  <p className="p-1">
-                    <i className="fas fa-sm fa-plus"></i> Thêm cột mới
-                  </p>
-                </HiddenAddForm>
-              </div>
-            </div>
-          </div>
+                  {cardColumns
+                    .filter((col) => col.status.enabled)
+                    .map((col, index) => (
+                      <CardColumn
+                        index={index}
+                        key={col.id}
+                        handleColumnTitleChange={this.handleColumnTitleChange}
+                        handleColumnTitleSubmit={this.handleColumnTitleSubmit}
+                        handleDisableColumn={this.handleDisableColumn}
+                        handleAddCard={this.handleAddCard}
+                        toggleEditCardModal={this.handleToggleModal}
+                        {...col}
+                      />
+                    ))}
+                  {provided.placeholder}
+                  <div className="column-container">
+                    <div className="box add-column">
+                      <HiddenAddForm
+                        handleSubmit={this.handleAddColumn}
+                        placeholder="Nhập tiêu đề cột..."
+                      >
+                        <p className="p-1">
+                          <i className="fas fa-sm fa-plus"></i> Thêm cột mới
+                        </p>
+                      </HiddenAddForm>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
         </section>
       </div>
     );

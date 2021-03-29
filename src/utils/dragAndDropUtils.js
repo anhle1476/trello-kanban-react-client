@@ -1,6 +1,27 @@
 import ColumnOrderDifference from "./ColumnOrderDifference";
 import CardOrderDifference from "./CardOrderDifference";
 
+export const TYPE = {
+  COLUMNS: "COLUMNS",
+  CARDS: "CARDS",
+};
+
+export const getRemappedColumns = (columns, { destination, source }) => {
+  let srcIndex = source.index;
+  let destIndex = destination.index;
+  columns.forEach((col, index) => {
+    if (!col.status.enabled) {
+      if (srcIndex >= index) srcIndex++;
+      if (destIndex >= index) destIndex++;
+    }
+  });
+
+  const result = Array.from(columns);
+  const dragObj = result.splice(srcIndex, 1);
+  result.splice(destIndex, 0, ...dragObj);
+  return result;
+};
+
 export const remapColumnOrdersAndGetDifference = (cols) => {
   const differences = [];
 

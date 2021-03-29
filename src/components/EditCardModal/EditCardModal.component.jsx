@@ -123,7 +123,7 @@ const EditCardModal = ({
               handleClick={handleDelete}
             >
               <i className="fas fa-archive"></i>
-              <span className="optional-btn-detail"> Xóa thẻ</span>
+              <span className="optional-btn-detail"> Ẩn thẻ</span>
             </CustomButton>
           </div>
         </div>
