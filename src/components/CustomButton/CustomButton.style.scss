@@ -8,9 +8,18 @@
   color: color(white);
   font-weight: bold;
   opacity: 0.9;
+  cursor: pointer;
 
-  &.add-btn {
+  &.btn-success {
     background-color: color(success);
+  }
+
+  &.btn-secondary {
+    background-color: color(secondary);
+  }
+
+  &.btn-danger {
+    background-color: color(danger);
   }
 
   &:disabled {

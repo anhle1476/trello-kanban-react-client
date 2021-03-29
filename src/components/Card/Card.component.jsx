@@ -7,7 +7,11 @@ function Card({ card, toggleEditCardModal }) {
   label = !label ? "#fff" : label;
   details = !details ? "" : details;
   return (
-    <div className="card-container" onClick={() => toggleEditCardModal(card)}>
+    <div
+      className="card-container"
+      title={details}
+      onClick={() => toggleEditCardModal(card)}
+    >
       <div className="card-label" style={{ backgroundColor: label }}>
         {" "}
       </div>

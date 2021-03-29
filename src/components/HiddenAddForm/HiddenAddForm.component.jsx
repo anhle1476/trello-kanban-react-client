@@ -38,7 +38,7 @@ class HiddenAddForm extends Component {
             <form onSubmit={this.handleSubmitForm}>
               {type === "textarea" ? (
                 <textarea
-                  className="hidden-part-input"
+                  className="hidden-part-input input-control"
                   placeholder={placeholder}
                   value={title}
                   onChange={this.handleChange}
@@ -46,7 +46,7 @@ class HiddenAddForm extends Component {
               ) : (
                 <input
                   type="text"
-                  className="hidden-part-input"
+                  className="hidden-part-input input-control"
                   placeholder={placeholder}
                   value={title}
                   onChange={this.handleChange}
@@ -57,7 +57,7 @@ class HiddenAddForm extends Component {
                 <CustomButton
                   type="submit"
                   disabled={title.trim().length === 0}
-                  customClass="add-btn"
+                  customClass="btn-success"
                 >
                   Lưu
                 </CustomButton>

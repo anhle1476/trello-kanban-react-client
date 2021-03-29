@@ -35,3 +35,13 @@ export const addCard = (boardId, colId, title) => {
   const requestUrl = `${BASE_URL}/boards/${boardId}/columns/${colId}/cards`;
   return axios.post(requestUrl, { title });
 };
+
+export const editCard = (boardId, cardId, data) => {
+  const requestUrl = `${BASE_URL}/boards/${boardId}/columns/0/cards/${cardId}`;
+  return axios.put(requestUrl, data);
+};
+
+export const disableCard = (boardId, cardId) => {
+  const requestUrl = `${BASE_URL}/boards/${boardId}/columns/0/cards/${cardId}`;
+  return axios.delete(requestUrl);
+};

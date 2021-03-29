@@ -10,7 +10,16 @@ import {
   addColumn,
   addCard,
   disableColumn,
+  editCard,
+  disableCard,
 } from "../../utils/request";
+import {
+  mapColumnChanges,
+  mapDisabledColumn,
+  mapEditedCardToColumns,
+  mapDisabledCard,
+  mapCreatedCard,
+} from "../../utils/boardEditingUtils";
 import HiddenAddForm from "../../components/HiddenAddForm/HiddenAddForm.component";
 import EditCardModal from "../../components/EditCardModal/EditCardModal.component";
 
@@ -60,11 +69,12 @@ class KanbanBoard extends Component {
     const { title, currentTitle, id, color } = this.state;
     if (title === currentTitle) return;
     try {
-      await updateBoardTitle(id, {
+      const formData = {
         id,
         title,
         color,
-      });
+      };
+      await updateBoardTitle(id, formData);
       this.setState({ currentTitle: title });
     } catch (ex) {
       console.log(ex);
@@ -72,10 +82,7 @@ class KanbanBoard extends Component {
   };
 
   handleColumnTitleChange = (e, id) => {
-    const columns = this.state.cardColumns.map((col) => {
-      if (col.id === id) col.title = e.target.value;
-      return col;
-    });
+    const columns = mapColumnChanges(e, id, this.state.cardColumns);
     this.setState({ cardColumns: columns });
   };
 
@@ -108,10 +115,7 @@ class KanbanBoard extends Component {
     try {
       await disableColumn(this.state.id, columnId);
       this.setState({
-        cardColumns: this.state.cardColumns.map((col) => {
-          if (col.id === columnId) col.status.enabled = false;
-          return col;
-        }),
+        cardColumns: mapDisabledColumn(columnId, this.state.cardColumns),
       });
     } catch (ex) {
       console.log(ex);
@@ -120,13 +124,9 @@ class KanbanBoard extends Component {
 
   handleAddCard = async (title, colId) => {
     try {
-      const response = await addCard(this.state.id, colId, title);
-      const columns = this.state.cardColumns.map((col) => {
-        if (col.id === colId) {
-          col.cards.push(response.data);
-        }
-        return col;
-      });
+      const { cardColumns, id } = this.state;
+      const response = await addCard(id, colId, title);
+      const columns = mapCreatedCard(response.data, colId, cardColumns);
       this.setState({ cardColumns: columns });
     } catch (ex) {
       console.log(ex);
@@ -135,6 +135,39 @@ class KanbanBoard extends Component {
 
   handleToggleModal = (editingCard) => {
     this.setState({ editingCard: editingCard });
+  };
+
+  handleEditCard = ({ name, value }) => {
+    const newState = { ...this.state.editingCard, [name]: value };
+    this.setState({ editingCard: newState });
+  };
+
+  handleSubmitEditedCard = async () => {
+    const { id, editingCard, cardColumns } = this.state;
+    try {
+      const response = await editCard(id, editingCard.id, editingCard);
+      const newColsData = mapEditedCardToColumns(response.data, cardColumns);
+      this.setState({
+        cardColumns: newColsData,
+        editingCard: null,
+      });
+    } catch (ex) {
+      console.log(ex);
+    }
+  };
+
+  handleDisableCard = async () => {
+    const { id, editingCard, cardColumns } = this.state;
+    try {
+      await disableCard(id, editingCard.id);
+      const newColsData = mapDisabledCard(editingCard.id, cardColumns);
+      this.setState({
+        cardColumns: newColsData,
+        editingCard: null,
+      });
+    } catch (ex) {
+      console.log(ex);
+    }
   };
 
   render() {
@@ -146,8 +179,11 @@ class KanbanBoard extends Component {
       <div className="board-container" style={{ backgroundColor: color }}>
         {editingCard && (
           <EditCardModal
+            handleChange={this.handleEditCard}
             editingCard={editingCard}
             toggleModal={this.handleToggleModal}
+            handleSubmit={this.handleSubmitEditedCard}
+            handleDelete={this.handleDisableCard}
           />
         )}
         <section className="board-info">

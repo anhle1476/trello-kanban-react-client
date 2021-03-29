@@ -1,0 +1,103 @@
+@import "../../constant.scss";
+
+.edit-card-modal {
+  width: 400px;
+  max-height: 85vh;
+  overflow-y: auto;
+  background-color: color(light);
+  color: color(primary-dark);
+  margin: auto;
+  padding: 3rem;
+  border-radius: 5px;
+
+  .edit-card-modal-group {
+    display: grid;
+    grid-template-columns: 3rem 1fr;
+    gap: 0.5rem;
+
+    .edit-card-modal-icons {
+      font-size: 1.7rem;
+
+      &.icon-center {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    .edit-card-modal-header {
+      display: flex;
+      justify-content: space-between;
+
+      .edit-card-modal-toggle-btn {
+        font-size: 2rem;
+        opacity: 0.8;
+        transition: all 0.5 ease;
+        cursor: pointer;
+        margin-left: 1rem;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  .edit-card-modal-group.custom-size > div:nth-child(2) {
+    padding-left: 1rem;
+    margin-bottom: 1rem;
+
+    h3 {
+      margin-bottom: 1rem;
+    }
+  }
+
+  .edit-card-modal-optional-group {
+    display: grid;
+    grid-template-columns: 1fr 10rem;
+
+    .optional-input-group {
+      border-right: 1px solid color(gray-trans);
+      margin-right: 0.5rem;
+      padding-right: 0.5rem;
+    }
+  }
+}
+
+.optional-btn-detail {
+  display: none;
+}
+
+.optional-btn-group {
+  display: block;
+  width: 100%;
+}
+
+@media (min-width: 576px) {
+  .edit-card-modal {
+    width: 500px;
+  }
+
+  .optional-btn-detail {
+    display: inline;
+  }
+
+  .optional-input-group {
+    margin-right: 1rem !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .edit-card-modal {
+    width: 700px;
+  }
+
+  .optional-input-group {
+    margin-right: 2rem !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .edit-card-modal {
+    width: 800px;
+  }
+}

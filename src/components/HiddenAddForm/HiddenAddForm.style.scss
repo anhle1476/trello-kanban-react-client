@@ -10,21 +10,6 @@
     padding: 0.5rem;
     transition: all 0.2s ease-in;
 
-    .hidden-part-input {
-      display: block;
-      width: 100%;
-      border: none;
-      color: color(primary-dark);
-      outline: none;
-      padding: 1rem;
-      box-shadow: 0 1px 0 rgba(9, 30, 66, 0.25);
-      font-size: 1.3rem;
-
-      &:focus {
-        outline: 2px solid color(primary);
-      }
-    }
-
     .hidden-part-btn-group {
       display: flex;
       align-items: center;

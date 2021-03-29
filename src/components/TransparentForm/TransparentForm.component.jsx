@@ -5,6 +5,7 @@ function TransparentForm({
   handleChange,
   handleChangeComplete,
   customClass = "",
+  ...otherProps
 }) {
   const mapSubmitToBlur = (e) => {
     e.preventDefault();
@@ -19,6 +20,7 @@ function TransparentForm({
         onBlur={handleChangeComplete}
         className={`transparent-field ${customClass}`}
         value={value}
+        {...otherProps}
       />
     </form>
   );

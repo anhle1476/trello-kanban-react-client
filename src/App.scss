@@ -103,6 +103,18 @@ a {
   margin-left: 1rem;
 }
 
+.mr-1 {
+  margin-right: 1rem;
+}
+
+.mb-1 {
+  margin-bottom: 1rem !important;
+}
+
+.mb-2 {
+  margin-bottom: 2rem !important;
+}
+
 .p-0 {
   padding: 0 !important;
 }
@@ -132,6 +144,22 @@ a {
 
   .box-details {
     display: none;
+  }
+}
+
+/* Input */
+.input-control {
+  display: block;
+  width: 100%;
+  border: none;
+  color: color(primary-dark);
+  outline: none;
+  padding: 1rem;
+  box-shadow: 0 1px 0 rgba(9, 30, 66, 0.25);
+  font-size: 1.3rem;
+
+  &:focus {
+    outline: 2px solid color(primary);
   }
 }
 
