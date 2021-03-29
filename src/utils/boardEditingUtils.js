@@ -1,3 +1,6 @@
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
+
 export const mapEditedCardToColumns = (edited, columns) =>
   columns.map((col) => {
     col.cards = col.cards.map((card) =>
@@ -40,3 +43,35 @@ export const mapCreatedCard = (newCard, colId, columns) =>
     }
     return col;
   });
+
+export const disableColumnConfirm = (doDisable) => {
+  confirmAlert({
+    title: "Ẩn cột",
+    message: "Bạn có chắc chắn ẩn cột này không",
+    buttons: [
+      {
+        label: "Có",
+        onClick: doDisable,
+      },
+      {
+        label: "Không",
+      },
+    ],
+  });
+};
+
+export const disableCardConfirm = (doDisable) => {
+  confirmAlert({
+    title: "Ẩn thẻ",
+    message: "Bạn có chắc chắn ẩn thẻ này không",
+    buttons: [
+      {
+        label: "Có",
+        onClick: doDisable,
+      },
+      {
+        label: "Không",
+      },
+    ],
+  });
+};

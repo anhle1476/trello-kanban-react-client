@@ -1,6 +1,6 @@
 export const formatDate = (date) => {
   const [, month, day] = date.split("-");
-  return month + "/" + day;
+  return day + "/" + month;
 };
 
 export const getDate = (dateStr) => (dateStr ? new Date(dateStr) : undefined);

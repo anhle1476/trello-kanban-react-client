@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { SwatchesPicker } from "react-color";
+import { GithubPicker } from "react-color";
+import { SWATCH } from "./defaultSwatch";
 import "./CustomColorPicker.style.scss";
 
 const CustomColorPicker = ({ name, color, handleChange }) => {
@@ -24,7 +25,12 @@ const CustomColorPicker = ({ name, color, handleChange }) => {
       {showPicker && (
         <div className="popover">
           <div className="cover" onClick={togglePicker} />
-          <SwatchesPicker color={color} onChange={colorChange} />
+          <GithubPicker
+            colors={SWATCH}
+            color={color}
+            width="163px"
+            onChange={colorChange}
+          />
         </div>
       )}
     </div>

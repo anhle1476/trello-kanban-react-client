@@ -9,7 +9,7 @@ function CardColumn({
   cards,
   handleColumnTitleChange,
   handleColumnTitleSubmit,
-  handleArchiveColumn,
+  handleDisableColumn,
   handleAddCard,
   toggleEditCardModal,
 }) {
@@ -25,7 +25,7 @@ function CardColumn({
           />
           <span
             className="column-option"
-            onClick={() => handleArchiveColumn(id)}
+            onClick={() => handleDisableColumn(id)}
           >
             <i className="fas fa-archive"></i>
           </span>

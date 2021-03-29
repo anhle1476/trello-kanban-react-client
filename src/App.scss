@@ -65,8 +65,7 @@ a {
 
 // containers
 
-.container,
-.container-fluid {
+.container {
   width: 100%;
   padding-top: 5rem;
   padding-right: 0.75rem;
@@ -207,11 +206,6 @@ a {
 
 /* Wide screen */
 @media (min-width: 1200px) {
-  html,
-  body {
-    font-size: 12px;
-  }
-
   .container {
     max-width: 1140px;
   }

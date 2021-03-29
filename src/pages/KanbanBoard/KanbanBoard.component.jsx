@@ -19,6 +19,8 @@ import {
   mapEditedCardToColumns,
   mapDisabledCard,
   mapCreatedCard,
+  disableColumnConfirm,
+  disableCardConfirm,
 } from "../../utils/boardEditingUtils";
 import HiddenAddForm from "../../components/HiddenAddForm/HiddenAddForm.component";
 import EditCardModal from "../../components/EditCardModal/EditCardModal.component";
@@ -110,16 +112,17 @@ class KanbanBoard extends Component {
     }
   };
 
-  handleArchiveColumn = async (columnId) => {
-    if (!window.confirm("Bạn có chắc chắn xóa cột này không?")) return;
-    try {
-      await disableColumn(this.state.id, columnId);
-      this.setState({
-        cardColumns: mapDisabledColumn(columnId, this.state.cardColumns),
-      });
-    } catch (ex) {
-      console.log(ex);
-    }
+  handleDisableColumn = (columnId) => {
+    disableColumnConfirm(async () => {
+      try {
+        await disableColumn(this.state.id, columnId);
+        this.setState({
+          cardColumns: mapDisabledColumn(columnId, this.state.cardColumns),
+        });
+      } catch (ex) {
+        console.log(ex);
+      }
+    });
   };
 
   handleAddCard = async (title, colId) => {
@@ -157,17 +160,19 @@ class KanbanBoard extends Component {
   };
 
   handleDisableCard = async () => {
-    const { id, editingCard, cardColumns } = this.state;
-    try {
-      await disableCard(id, editingCard.id);
-      const newColsData = mapDisabledCard(editingCard.id, cardColumns);
-      this.setState({
-        cardColumns: newColsData,
-        editingCard: null,
-      });
-    } catch (ex) {
-      console.log(ex);
-    }
+    disableCardConfirm(async () => {
+      const { id, editingCard, cardColumns } = this.state;
+      try {
+        await disableCard(id, editingCard.id);
+        const newColsData = mapDisabledCard(editingCard.id, cardColumns);
+        this.setState({
+          cardColumns: newColsData,
+          editingCard: null,
+        });
+      } catch (ex) {
+        console.log(ex);
+      }
+    });
   };
 
   render() {
@@ -204,7 +209,7 @@ class KanbanBoard extends Component {
                   key={col.id}
                   handleColumnTitleChange={this.handleColumnTitleChange}
                   handleColumnTitleSubmit={this.handleColumnTitleSubmit}
-                  handleArchiveColumn={this.handleArchiveColumn}
+                  handleDisableColumn={this.handleDisableColumn}
                   handleAddCard={this.handleAddCard}
                   toggleEditCardModal={this.handleToggleModal}
                   {...col}
