@@ -7,11 +7,13 @@
   color: color(white);
   display: flex;
   flex-direction: column;
+  position: relative;
 
   .board-info {
     display: flex;
     justify-content: space-between;
     margin-bottom: 1rem;
+    padding: 0 0.5rem;
   }
 
   .board-content {

@@ -34,6 +34,7 @@ import {
 } from "../../services/dragAndDropService";
 import HiddenAddForm from "../../components/HiddenAddForm/HiddenAddForm.component";
 import EditCardModal from "../../components/EditCardModal/EditCardModal.component";
+import SideMenu from "../../components/SideMenu/SideMenu.component";
 
 class KanbanBoard extends Component {
   constructor(props) {
@@ -237,6 +238,7 @@ class KanbanBoard extends Component {
               handleChangeComplete={this.handleTitleSubmit}
             />
           </h2>
+          <SideMenu />
         </section>
         <section className="board-content">
           <DragDropContext onDragEnd={this.onDragEnd}>

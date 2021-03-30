@@ -63,6 +63,11 @@ a {
   color: color(primary);
 }
 
+.App {
+  width: 100vw;
+  overflow: hidden;
+}
+
 // containers
 
 .container {
@@ -86,6 +91,10 @@ a {
 
 .text-primary-dark {
   color: color(primary-dark) !important;
+}
+
+.font-weight-normal {
+  font-weight: normal !important;
 }
 
 .my-1 {
