@@ -1,4 +1,5 @@
 import axios from "axios";
+import { TYPE } from "./dragAndDropUtils";
 
 const BASE_DOMAIN = "http://localhost:8080";
 const API_VERSION = "v1";
@@ -44,4 +45,12 @@ export const editCard = (boardId, cardId, data) => {
 export const disableCard = (boardId, cardId) => {
   const requestUrl = `${BASE_URL}/boards/${boardId}/columns/0/cards/${cardId}`;
   return axios.delete(requestUrl);
+};
+
+export const dragAndDropPersist = (boardId, type, differ) => {
+  const requestUrl = `${BASE_URL}/dnd/${boardId}/${
+    type === TYPE.COLUMNS ? "columns" : "cards"
+  }`;
+  console.log(differ);
+  return axios.put(requestUrl, differ);
 };

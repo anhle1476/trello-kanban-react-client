@@ -13,8 +13,10 @@ import {
   disableColumn,
   editCard,
   disableCard,
+  dragAndDropPersist,
 } from "../../utils/request";
 import {
+  sortData,
   mapColumnChanges,
   mapDisabledColumn,
   mapEditedCardToColumns,
@@ -57,14 +59,17 @@ class KanbanBoard extends Component {
     try {
       const response = await getBoardById(boardId);
 
+      const boardData = response.data;
+      sortData(boardData);
+
       this.setState({
         isFetching: false,
         editingCard: null,
-        currentTitle: response.data.title,
-        ...response.data,
+        currentTitle: boardData.title,
+        ...boardData,
       });
     } catch (ex) {
-      console.log(ex.response.data);
+      console.log(ex);
       this.setState({
         isFetching: false,
       });
@@ -183,29 +188,28 @@ class KanbanBoard extends Component {
     });
   };
 
-  onDragEnd = (result) => {
-    const { destination, source } = result;
-    const { cardColumns } = this.state;
+  onDragEnd = async (result) => {
+    const { destination, source, type } = result;
+    const { cardColumns, id } = this.state;
     if (
       !destination ||
       (destination.droppableId === source.droppableId &&
         destination.index === source.index)
     )
       return;
-
-    if (result.type === TYPE.COLUMNS) {
-      const mapped = getRemappedColumns(cardColumns, result);
-      const differ = remapColumnOrdersAndGetDifference(mapped);
-      this.setState({ cardColumns: mapped });
-      console.log(differ);
+    let mapped, differ;
+    if (type === TYPE.COLUMNS) {
+      mapped = getRemappedColumns(cardColumns, result);
+      differ = remapColumnOrdersAndGetDifference(mapped);
     } else {
-      const mapped = getRemappedCards(cardColumns, result);
-      const differ = remapCardOrdersAndGetDifference(cardColumns, mapped);
-      this.setState({ cardColumns: mapped });
-      console.log("result");
-      console.log(mapped);
-      console.log("differ");
-      console.log(differ);
+      mapped = getRemappedCards(cardColumns, result);
+      differ = remapCardOrdersAndGetDifference(cardColumns, mapped);
+    }
+    this.setState({ cardColumns: mapped });
+    try {
+      await dragAndDropPersist(id, type, differ);
+    } catch (ex) {
+      console.log(ex);
     }
   };
 

@@ -1,4 +1,3 @@
-import ColumnOrderDifference from "./ColumnOrderDifference";
 import CardOrderDifference from "./CardOrderDifference";
 
 export const TYPE = {
@@ -23,12 +22,12 @@ export const getRemappedColumns = (columns, { destination, source }) => {
 };
 
 export const remapColumnOrdersAndGetDifference = (cols) => {
-  const differences = [];
+  const differences = {};
 
   for (let i = 0; i < cols.length; i++) {
     const currCol = cols[i];
     if (currCol.columnOrder !== i) {
-      differences.push(new ColumnOrderDifference(currCol.id, i));
+      differences[currCol.id] = i;
       currCol.columnOrder = i;
     }
   }
@@ -37,9 +36,6 @@ export const remapColumnOrdersAndGetDifference = (cols) => {
 };
 
 export const getRemappedCards = (columns, { destination, source }) => {
-  console.log("------------------------------------------");
-  console.log("REMAP PHASE:");
-  debugCol(columns);
   const result = columns.map((col) => ({
     ...col,
     cards: [...col.cards],
@@ -78,18 +74,11 @@ export const getRemappedCards = (columns, { destination, source }) => {
       break;
     }
   }
-  console.log("FINISH REMAP PHASE:");
-  debugCol(columns);
-  debugCol(result);
+
   return result;
 };
 
 export const remapCardOrdersAndGetDifference = (oldCols, newCols) => {
-  console.log("------------------------------------------");
-  console.log("REMAP INDEX PHASE:");
-  debugCol(oldCols);
-  debugCol(newCols);
-
   const differences = {};
 
   for (let i = 0; i < newCols.length; i++) {
@@ -99,7 +88,6 @@ export const remapCardOrdersAndGetDifference = (oldCols, newCols) => {
       const currCard = currCol.cards[j];
 
       if (currCard.id !== oldCols[i].cards[j]?.id) {
-        console.log(currCard.id + " - " + oldCols[i][j]?.id);
         differences[currCard.id] = new CardOrderDifference(currCol.id, j);
         currCard.cardOrder = j;
       }
@@ -108,9 +96,3 @@ export const remapCardOrdersAndGetDifference = (oldCols, newCols) => {
 
   return differences;
 };
-
-function debugCol(cols) {
-  console.log(
-    cols.map((col) => col.title + ":" + col.cards.length).join(" - ")
-  );
-}

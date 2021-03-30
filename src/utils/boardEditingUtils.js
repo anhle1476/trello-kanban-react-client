@@ -75,3 +75,10 @@ export const disableCardConfirm = (doDisable) => {
     ],
   });
 };
+
+export const sortData = (data) => {
+  data.cardColumns.sort((col1, col2) => col1.columnOrder - col2.columnOrder);
+  data.cardColumns.forEach((col) => {
+    col.cards.sort((c1, c2) => c1.cardOrder - c2.cardOrder);
+  });
+};
