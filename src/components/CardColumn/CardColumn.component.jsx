@@ -3,7 +3,7 @@ import HiddenAddForm from "../HiddenAddForm/HiddenAddForm.component";
 import TransparentForm from "../TransparentForm/TransparentForm.component";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import "./CardColumn.style.scss";
-import { TYPE } from "../../utils/dragAndDropUtils";
+import { TYPE } from "../../services/dragAndDropService";
 
 function CardColumn({
   id,

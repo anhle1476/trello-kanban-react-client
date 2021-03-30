@@ -3,7 +3,7 @@ import CustomDatePicker from "../CustomDatePicker/CustomDatePicker.component";
 
 import ModalWrapper from "../ModalWrapper/ModalWrapper.component";
 import TransparentForm from "../TransparentForm/TransparentForm.component";
-import { getDate } from "../../utils/dateUtils";
+import { getDate } from "../../services/dateUtils";
 
 import "./EditCardModal.style.scss";
 import CustomButton from "../CustomButton/CustomButton.component";

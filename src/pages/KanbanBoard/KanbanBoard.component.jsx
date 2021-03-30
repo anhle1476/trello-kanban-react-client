@@ -14,7 +14,7 @@ import {
   editCard,
   disableCard,
   dragAndDropPersist,
-} from "../../utils/request";
+} from "../../services/requestService";
 import {
   sortData,
   mapColumnChanges,
@@ -24,14 +24,14 @@ import {
   mapCreatedCard,
   disableColumnConfirm,
   disableCardConfirm,
-} from "../../utils/boardEditingUtils";
+} from "../../services/boardEditingService";
 import {
   TYPE,
   getRemappedColumns,
   remapColumnOrdersAndGetDifference,
   getRemappedCards,
   remapCardOrdersAndGetDifference,
-} from "../../utils/dragAndDropUtils";
+} from "../../services/dragAndDropService";
 import HiddenAddForm from "../../components/HiddenAddForm/HiddenAddForm.component";
 import EditCardModal from "../../components/EditCardModal/EditCardModal.component";
 

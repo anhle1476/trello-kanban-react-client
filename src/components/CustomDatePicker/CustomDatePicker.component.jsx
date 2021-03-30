@@ -1,5 +1,5 @@
 import DatePicker from "react-datepicker";
-import { getDateStr } from "../../utils/dateUtils";
+import { getDateStr } from "../../services/dateUtils";
 
 import "react-datepicker/dist/react-datepicker.css";
 import "./CustomDatePicker.style.scss";

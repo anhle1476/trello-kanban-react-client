@@ -1,5 +1,5 @@
 import { Draggable } from "react-beautiful-dnd";
-import { formatDate } from "../../utils/dateUtils";
+import { formatDate } from "../../services/dateUtils";
 
 import "./Card.style.scss";
 

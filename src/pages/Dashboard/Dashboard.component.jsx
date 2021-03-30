@@ -4,7 +4,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import BoardPreview from "../../components/BoardPreview/BoardPreview.component";
 import AddBoardModal from "../../components/AddBoardModal/AddBoardModal.component";
-import { getAllBoardsInfo, createBoard } from "../../utils/request";
+import { getAllBoardsInfo, createBoard } from "../../services/requestService";
 
 class Dashboard extends Component {
   constructor(props) {
