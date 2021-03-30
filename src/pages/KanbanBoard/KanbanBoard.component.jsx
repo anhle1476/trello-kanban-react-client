@@ -27,6 +27,8 @@ import {
   TYPE,
   getRemappedColumns,
   remapColumnOrdersAndGetDifference,
+  getRemappedCards,
+  remapCardOrdersAndGetDifference,
 } from "../../utils/dragAndDropUtils";
 import HiddenAddForm from "../../components/HiddenAddForm/HiddenAddForm.component";
 import EditCardModal from "../../components/EditCardModal/EditCardModal.component";
@@ -182,19 +184,28 @@ class KanbanBoard extends Component {
   };
 
   onDragEnd = (result) => {
+    const { destination, source } = result;
+    const { cardColumns } = this.state;
+    if (
+      !destination ||
+      (destination.droppableId === source.droppableId &&
+        destination.index === source.index)
+    )
+      return;
+
     if (result.type === TYPE.COLUMNS) {
-      const mapped = getRemappedColumns(this.state.cardColumns, result);
-      console.log(
-        mapped.map((col) => col.id + ":" + col.columnOrder).join("--")
-      );
+      const mapped = getRemappedColumns(cardColumns, result);
       const differ = remapColumnOrdersAndGetDifference(mapped);
-      console.log(
-        mapped.map((col) => col.id + ":" + col.columnOrder).join("--")
-      );
       this.setState({ cardColumns: mapped });
       console.log(differ);
     } else {
-      console.log(result);
+      const mapped = getRemappedCards(cardColumns, result);
+      const differ = remapCardOrdersAndGetDifference(cardColumns, mapped);
+      this.setState({ cardColumns: mapped });
+      console.log("result");
+      console.log(mapped);
+      console.log("differ");
+      console.log(differ);
     }
   };
 

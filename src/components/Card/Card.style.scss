@@ -12,10 +12,6 @@
   display: flex;
   justify-content: space-between;
 
-  &.dragging {
-    border: 3px solid orange;
-  }
-
   .card-label {
     width: 1.5rem;
     border-radius: 3px 0 0 3px;

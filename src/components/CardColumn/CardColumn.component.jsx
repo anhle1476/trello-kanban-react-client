@@ -18,13 +18,18 @@ function CardColumn({
 }) {
   return (
     <Draggable draggableId={`col-${id}`} index={index}>
-      {(provided) => (
+      {(provided, snapshot) => (
         <div
           className="column-container"
           {...provided.draggableProps}
           ref={provided.innerRef}
         >
-          <div className="column" {...provided.dragHandleProps}>
+          <div
+            className={`column drag-item ${
+              snapshot.isDragging ? "dragging" : ""
+            }`}
+            {...provided.dragHandleProps}
+          >
             <div className="column-header">
               <TransparentForm
                 value={title}
@@ -39,7 +44,7 @@ function CardColumn({
                 <i className="fas fa-archive"></i>
               </span>
             </div>
-            <Droppable droppableId={`drop-col-${id}`} type={TYPE.CARDS}>
+            <Droppable droppableId={`${id}`} type={TYPE.CARDS}>
               {(provided) => (
                 <div
                   className="column-body"

@@ -11,7 +11,9 @@ function Card({ card, toggleEditCardModal, index }) {
     <Draggable draggableId={`card-${id}`} index={index}>
       {(provided, snapshot) => (
         <div
-          className={`card-container ${snapshot.isDragging ? "dragging" : ""}`}
+          className={`card-container drag-item ${
+            snapshot.isDragging ? "dragging" : ""
+          }`}
           title={details}
           onClick={() => toggleEditCardModal(card)}
           {...provided.draggableProps}

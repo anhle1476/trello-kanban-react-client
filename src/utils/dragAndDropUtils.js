@@ -36,15 +36,71 @@ export const remapColumnOrdersAndGetDifference = (cols) => {
   return differences;
 };
 
+export const getRemappedCards = (columns, { destination, source }) => {
+  console.log("------------------------------------------");
+  console.log("REMAP PHASE:");
+  debugCol(columns);
+  const result = columns.map((col) => ({
+    ...col,
+    cards: [...col.cards],
+  }));
+  const destId = Number(destination.droppableId);
+  const srcId = Number(source.droppableId);
+  let srcIndex = source.index;
+  let destIndex = destination.index;
+  columns.forEach(({ id, cards }) => {
+    if (id === srcId) {
+      cards.forEach((card, index) => {
+        if (!card.status.enabled) {
+          if (srcIndex >= index) srcIndex++;
+        }
+      });
+    }
+    if (id === destId) {
+      cards.forEach((card, index) => {
+        if (!card.status.enabled) {
+          if (destIndex >= index) destIndex++;
+        }
+      });
+    }
+  });
+
+  let dragObj;
+  for (let col of result) {
+    if (col.id === srcId) {
+      dragObj = col.cards.splice(srcIndex, 1);
+      break;
+    }
+  }
+  for (let col of result) {
+    if (col.id === destId) {
+      col.cards.splice(destIndex, 0, ...dragObj);
+      break;
+    }
+  }
+  console.log("FINISH REMAP PHASE:");
+  debugCol(columns);
+  debugCol(result);
+  return result;
+};
+
 export const remapCardOrdersAndGetDifference = (oldCols, newCols) => {
-  const differences = [];
+  console.log("------------------------------------------");
+  console.log("REMAP INDEX PHASE:");
+  debugCol(oldCols);
+  debugCol(newCols);
+
+  const differences = {};
 
   for (let i = 0; i < newCols.length; i++) {
     const currCol = newCols[i];
+
     for (let j = 0; j < currCol.cards.length; j++) {
       const currCard = currCol.cards[j];
-      if (currCard.id !== oldCols[i][j]?.id) {
-        differences.push(new CardOrderDifference(currCard.id, currCol.id, j));
+
+      if (currCard.id !== oldCols[i].cards[j]?.id) {
+        console.log(currCard.id + " - " + oldCols[i][j]?.id);
+        differences[currCard.id] = new CardOrderDifference(currCol.id, j);
         currCard.cardOrder = j;
       }
     }
@@ -52,3 +108,9 @@ export const remapCardOrdersAndGetDifference = (oldCols, newCols) => {
 
   return differences;
 };
+
+function debugCol(cols) {
+  console.log(
+    cols.map((col) => col.title + ":" + col.cards.length).join(" - ")
+  );
+}

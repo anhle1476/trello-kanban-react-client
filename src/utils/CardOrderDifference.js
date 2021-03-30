@@ -1,6 +1,5 @@
 class CardOrderDifference {
-  constructor(cardId, columnId, cardOrder) {
-    this.cardId = cardId;
+  constructor(columnId, cardOrder) {
     this.columnId = columnId;
     this.cardOrder = cardOrder;
   }
