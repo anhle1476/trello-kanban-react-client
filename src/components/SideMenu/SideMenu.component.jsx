@@ -19,10 +19,22 @@ const SideMenu = () => {
     <>
       <SideMenuShowBtn toggleShow={toggleShow} />
       <div className={`side-menu ${isShow ? "show-menu" : ""}`}>
-        <h1>SIDE MENU</h1>
-        <span className="side-menu-close-btn" onClick={toggleShow}>
-          &#10005;
-        </span>
+        <div className="side-menu-header">
+          <div className="side-menu-group">
+            <span></span>
+            <h3 className="center-group">Menu</h3>
+            <span className="side-menu-close-btn" onClick={toggleShow}>
+              &#10005;
+            </span>
+          </div>
+        </div>
+        <div className="side-menu-body">
+          <div>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Et tenetur
+            enim facilis quae aliquid ipsam corrupti nesciunt error magni
+            aliquam!
+          </div>
+        </div>
       </div>
     </>
   );
