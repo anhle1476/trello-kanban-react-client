@@ -85,7 +85,6 @@ const SideMenu = ({
             iconClass="fas fa-search"
             optionTitle="Tìm kiếm thẻ"
           >
-            <br />
             <input
               type="search"
               className="input-control"

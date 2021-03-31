@@ -15,6 +15,8 @@ const EditCardModal = ({
   handleSubmit,
   handleDelete,
 }) => {
+  const startDateValue = getDate(startDate);
+  const dueDateValue = getDate(dueDate);
   return (
     <ModalWrapper handleToggle={() => toggleModal()}>
       <div className="edit-card-modal">
@@ -79,7 +81,8 @@ const EditCardModal = ({
                   <h3>Ngày bắt đầu:</h3>
                   <CustomDatePicker
                     name="startDate"
-                    value={getDate(startDate)}
+                    value={startDateValue}
+                    maxDate={dueDateValue}
                     onDateChange={handleChange}
                     placeholder="Nhập ngày bắt đầu..."
                   />
@@ -88,7 +91,8 @@ const EditCardModal = ({
                   <h3>Ngày kết thúc:</h3>
                   <CustomDatePicker
                     name="dueDate"
-                    value={getDate(dueDate)}
+                    minDate={startDateValue}
+                    value={dueDateValue}
                     onDateChange={handleChange}
                     placeholder="Nhập ngày kết thúc..."
                   />
