@@ -12,11 +12,17 @@
     font-weight: bold;
     border-radius: 5px;
     cursor: pointer;
-
     padding: 1rem 1.5rem;
 
     &:hover {
       background-color: color(gray-trans);
+    }
+
+    &.active {
+      background-color: color(gray-trans);
+      &:hover {
+        box-shadow: 0 1px 0 rgba(9, 30, 66, 0.25);
+      }
     }
 
     .color-preview {
@@ -28,13 +34,15 @@
   }
 
   .hidden-option {
+    box-sizing: border-box;
     padding: 1rem;
     border-radius: 5px;
-    background-color: red;
+    background-color: white;
+    box-shadow: 0 1px 0 rgba(9, 30, 66, 0.25);
+    transition: max-height 0.2s ease-out;
     display: none;
 
     &.show {
-      visibility: visible;
       display: block;
     }
   }

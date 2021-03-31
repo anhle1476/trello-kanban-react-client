@@ -6,7 +6,7 @@ import CardColumn from "../../components/CardColumn/CardColumn.component";
 import TransparentForm from "../../components/TransparentForm/TransparentForm.component";
 import {
   getBoardById,
-  updateBoardTitle,
+  updateBoard,
   updateColumnTitle,
   addColumn,
   addCard,
@@ -27,6 +27,7 @@ import {
 } from "../../services/boardEditingService";
 import {
   TYPE,
+  isOrderUnchanged,
   getRemappedColumns,
   remapColumnOrdersAndGetDifference,
   getRemappedCards,
@@ -49,6 +50,8 @@ class KanbanBoard extends Component {
       isFetching: true,
       currentTitle: "",
       editingCard: null,
+      searchByTitle: "",
+      searchByLabel: "",
     };
   }
 
@@ -59,14 +62,13 @@ class KanbanBoard extends Component {
   fetchCurrentBoard = async (boardId) => {
     try {
       const response = await getBoardById(boardId);
-
       const boardData = response.data;
       sortData(boardData);
 
       this.setState({
-        isFetching: false,
-        editingCard: null,
+        ...this.state,
         currentTitle: boardData.title,
+        isFetching: false,
         ...boardData,
       });
     } catch (ex) {
@@ -77,25 +79,40 @@ class KanbanBoard extends Component {
     }
   };
 
+  /*********** EDIT BOARD ***********/
+
   handleTitleChange = ({ target }) => {
     this.setState({ title: target.value });
   };
 
   handleTitleSubmit = async () => {
-    const { title, currentTitle, id, color } = this.state;
+    const { title, currentTitle } = this.state;
     if (title === currentTitle) return;
     try {
-      const formData = {
-        id,
-        title,
-        color,
-      };
-      await updateBoardTitle(id, formData);
-      this.setState({ currentTitle: title });
+      this.setState({ currentTitle: title }, this.requestUpdateBoard);
     } catch (ex) {
       console.log(ex);
     }
   };
+
+  handleColorChange = (result) => {
+    try {
+      this.setState({ color: result.hex }, this.requestUpdateBoard);
+    } catch (ex) {
+      console.log(ex);
+    }
+  };
+
+  requestUpdateBoard = async () => {
+    const { title, id, color } = this.state;
+    return await updateBoard(id, {
+      id,
+      title,
+      color,
+    });
+  };
+
+  /*********** EDIT COLUMNS ***********/
 
   handleColumnTitleChange = (e, id) => {
     const columns = mapColumnChanges(e, id, this.state.cardColumns);
@@ -150,6 +167,8 @@ class KanbanBoard extends Component {
     }
   };
 
+  /*********** EDIT CARD ***********/
+
   handleToggleModal = (editingCard) => {
     this.setState({ editingCard: editingCard });
   };
@@ -189,17 +208,12 @@ class KanbanBoard extends Component {
     });
   };
 
+  /*********** DRAG AND DROP ***********/
   onDragEnd = async (result) => {
-    const { destination, source, type } = result;
     const { cardColumns, id } = this.state;
-    if (
-      !destination ||
-      (destination.droppableId === source.droppableId &&
-        destination.index === source.index)
-    )
-      return;
+    if (isOrderUnchanged(result)) return;
     let mapped, differ;
-    if (type === TYPE.COLUMNS) {
+    if (result.type === TYPE.COLUMNS) {
       mapped = getRemappedColumns(cardColumns, result);
       differ = remapColumnOrdersAndGetDifference(mapped);
     } else {
@@ -208,14 +222,32 @@ class KanbanBoard extends Component {
     }
     this.setState({ cardColumns: mapped });
     try {
-      await dragAndDropPersist(id, type, differ);
+      await dragAndDropPersist(id, result.type, differ);
     } catch (ex) {
       console.log(ex);
     }
   };
 
+  /*********** SEARCHING ***********/
+  handleSearchByTitle = (value) => {
+    this.setState({ searchByTitle: value });
+  };
+
+  handleSearchByLabel = (value) => {
+    this.setState({ searchByLabel: value });
+  };
+
+  /*********** REACT RENDER METHOD ***********/
   render() {
-    const { title, color, cardColumns, isFetching, editingCard } = this.state;
+    const {
+      title,
+      color,
+      cardColumns,
+      isFetching,
+      editingCard,
+      searchByTitle,
+      searchByLabel,
+    } = this.state;
     if (isFetching) {
       return <Loader />;
     }
@@ -238,7 +270,12 @@ class KanbanBoard extends Component {
               handleChangeComplete={this.handleTitleSubmit}
             />
           </h2>
-          <SideMenu />
+          <SideMenu
+            handleColorChange={this.handleColorChange}
+            handleSearchByTitle={this.handleSearchByTitle}
+            handleSearchByLabel={this.handleSearchByLabel}
+            {...this.state}
+          />
         </section>
         <section className="board-content">
           <DragDropContext onDragEnd={this.onDragEnd}>
@@ -264,6 +301,8 @@ class KanbanBoard extends Component {
                         handleDisableColumn={this.handleDisableColumn}
                         handleAddCard={this.handleAddCard}
                         toggleEditCardModal={this.handleToggleModal}
+                        searchByTitle={searchByTitle.toLowerCase()}
+                        searchByLabel={searchByLabel.toLowerCase()}
                         {...col}
                       />
                     ))}

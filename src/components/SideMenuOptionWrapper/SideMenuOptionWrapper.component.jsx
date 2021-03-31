@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-import "./SideBarOptionWrapper.style.scss";
+import "./SideMenuOptionWrapper.style.scss";
 
-const SideBarOptionWrapper = ({
+const SideMenuOptionWrapper = ({
   children,
   iconClass,
   iconStyle,
@@ -14,7 +14,10 @@ const SideBarOptionWrapper = ({
 
   return (
     <div className="side-menu-options">
-      <div className="grid-option" onClick={toggleShow}>
+      <div
+        className={`grid-option ${isShow ? "active" : ""}`}
+        onClick={toggleShow}
+      >
         <div>
           <i className={iconClass} style={iconStyle}></i>
         </div>
@@ -25,4 +28,4 @@ const SideBarOptionWrapper = ({
   );
 };
 
-export default SideBarOptionWrapper;
+export default SideMenuOptionWrapper;

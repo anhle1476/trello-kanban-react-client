@@ -15,6 +15,8 @@ function CardColumn({
   handleAddCard,
   toggleEditCardModal,
   index,
+  searchByTitle,
+  searchByLabel,
 }) {
   return (
     <Draggable draggableId={`col-${id}`} index={index}>
@@ -40,6 +42,7 @@ function CardColumn({
               <span
                 className="column-option"
                 onClick={() => handleDisableColumn(id)}
+                title="Ẩn cột"
               >
                 <i className="fas fa-archive"></i>
               </span>
@@ -52,7 +55,13 @@ function CardColumn({
                   ref={provided.innerRef}
                 >
                   {cards
-                    .filter((card) => card.status.enabled)
+                    .filter(
+                      (card) =>
+                        card.status.enabled &&
+                        card.title.toLowerCase().indexOf(searchByTitle) >= 0 &&
+                        (searchByLabel === "" ||
+                          card.label.toLowerCase().indexOf(searchByLabel) >= 0)
+                    )
                     .map((card, index) => (
                       <Card
                         toggleEditCardModal={toggleEditCardModal}

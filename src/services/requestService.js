@@ -14,7 +14,7 @@ export const createBoard = (newBoard) =>
 export const getBoardById = (boardId) =>
   axios.get(`${BASE_URL}/boards/${boardId}`);
 
-export const updateBoardTitle = (boardId, data) =>
+export const updateBoard = (boardId, data) =>
   axios.put(`${BASE_URL}/boards/${boardId}`, data);
 
 export const addColumn = (boardId, title) => {

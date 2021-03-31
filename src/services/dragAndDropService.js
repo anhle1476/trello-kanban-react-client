@@ -5,6 +5,11 @@ export const TYPE = {
   CARDS: "CARDS",
 };
 
+export const isOrderUnchanged = ({ destination, source }) =>
+  !destination ||
+  (destination.droppableId === source.droppableId &&
+    destination.index === source.index);
+
 export const getRemappedColumns = (columns, { destination, source }) => {
   let srcIndex = source.index;
   let destIndex = destination.index;
