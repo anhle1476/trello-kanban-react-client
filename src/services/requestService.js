@@ -51,6 +51,6 @@ export const dragAndDropPersist = (boardId, type, differ) => {
   const requestUrl = `${BASE_URL}/dnd/${boardId}/${
     type === TYPE.COLUMNS ? "columns" : "cards"
   }`;
-  console.log(differ);
+  //console.log(differ);
   return axios.put(requestUrl, differ);
 };

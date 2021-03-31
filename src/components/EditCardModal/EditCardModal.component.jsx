@@ -20,7 +20,7 @@ const EditCardModal = ({
       <div className="edit-card-modal">
         <div className="edit-card-modal-group mb-1">
           <div className="edit-card-modal-icons icon-center">
-            <i className="fas fa-chalkboard"></i>
+            <i className="fas fa-sticky-note"></i>
           </div>
           <div className="edit-card-modal-header">
             <TransparentForm

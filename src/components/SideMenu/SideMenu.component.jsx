@@ -1,4 +1,5 @@
-import React, { Component, useState } from "react";
+import { useState } from "react";
+import SideBarOptionWrapper from "../SideBarOptionWrapper/SideBarOptionWrapper.component";
 import "./SideMenu.style.scss";
 
 const SideMenuShowBtn = ({ toggleShow }) => (
@@ -29,11 +30,37 @@ const SideMenu = () => {
           </div>
         </div>
         <div className="side-menu-body">
-          <div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Et tenetur
-            enim facilis quae aliquid ipsam corrupti nesciunt error magni
-            aliquam!
-          </div>
+          <SideBarOptionWrapper
+            iconClass="color-preview"
+            iconStyle={{ backgroundColor: "#f00" }}
+            optionTitle="Đổi màu bảng"
+          >
+            <p>ABC</p>
+          </SideBarOptionWrapper>
+          <SideBarOptionWrapper
+            iconClass="fas fa-search"
+            optionTitle="Tìm kiếm thẻ"
+          >
+            <p>ABC</p>
+          </SideBarOptionWrapper>
+          <SideBarOptionWrapper
+            iconClass="fas fa-columns"
+            optionTitle="Cột đã ẩn"
+          >
+            <p>ABC</p>
+          </SideBarOptionWrapper>
+          <SideBarOptionWrapper
+            iconClass="fas fa-sticky-note"
+            optionTitle="Thẻ đã ẩn"
+          >
+            <p>ABC</p>
+          </SideBarOptionWrapper>
+          <SideBarOptionWrapper
+            iconClass="fas fa-archive"
+            optionTitle="Ẩn bảng"
+          >
+            <p>ABC</p>
+          </SideBarOptionWrapper>
         </div>
       </div>
     </>

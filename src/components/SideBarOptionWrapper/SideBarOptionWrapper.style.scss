@@ -1,0 +1,41 @@
+@import "../../constant.scss";
+
+.side-menu-options {
+  border-radius: 5px;
+
+  .grid-option {
+    display: grid;
+    user-select: none;
+    grid-template-columns: 3rem 1fr;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+
+    padding: 1rem 1.5rem;
+
+    &:hover {
+      background-color: color(gray-trans);
+    }
+
+    .color-preview {
+      display: block;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 5px;
+    }
+  }
+
+  .hidden-option {
+    padding: 1rem;
+    border-radius: 5px;
+    background-color: red;
+    display: none;
+
+    &.show {
+      visibility: visible;
+      display: block;
+    }
+  }
+}
