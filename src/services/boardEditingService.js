@@ -24,21 +24,27 @@ export const mapDisabledCard = (disabledId, columns) =>
 export const mapEnableCard = (enabledId, columns) =>
   mapCardStatus(enabledId, columns, true);
 
+export const mapDeletedCard = (cardId, columns) =>
+  columns.map((col) => ({
+    ...col,
+    cards: col.cards.filter((card) => card.id !== cardId),
+  }));
+
 export const mapColumnChanges = (event, colId, cols) =>
   cols.map((col) => {
     if (col.id === colId) col.title = event.target.value;
     return col;
   });
 
-export const mapDisabledColumn = (disabledId, columns) =>
+export const mapDisabledColumn = (colId, columns) =>
   columns.map((col) => {
-    if (col.id === disabledId) col.status.enabled = false;
+    if (col.id === colId) col.status.enabled = false;
     return col;
   });
 
-export const mapEnabledColumn = (disabledId, columns) =>
+export const mapEnabledColumn = (colId, columns) =>
   columns.map((col) => {
-    if (col.id === disabledId) col.status.enabled = true;
+    if (col.id === colId) col.status.enabled = true;
     return col;
   });
 
@@ -74,6 +80,23 @@ export const disableCardConfirm = (doDisable) => {
       {
         label: "Có",
         onClick: doDisable,
+      },
+      {
+        label: "Không",
+      },
+    ],
+  });
+};
+
+export const deleteCardConfirm = (doDelete) => {
+  confirmAlert({
+    title: "Xóa thẻ",
+    message:
+      "Bạn có chắc chắn muốn xóa thẻ này không? \n(Hành động này không thể khôi phục được)",
+    buttons: [
+      {
+        label: "Có",
+        onClick: doDelete,
       },
       {
         label: "Không",

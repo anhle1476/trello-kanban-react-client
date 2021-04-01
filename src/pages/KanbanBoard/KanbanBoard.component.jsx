@@ -14,6 +14,7 @@ import {
   enableColumn,
   editCard,
   disableCard,
+  deleteCard,
   enableCard,
   dragAndDropPersist,
 } from "../../services/requestService";
@@ -24,10 +25,12 @@ import {
   mapEnabledColumn,
   mapEditedCardToColumns,
   mapDisabledCard,
+  mapDeletedCard,
   mapEnableCard,
   mapCreatedCard,
   disableColumnConfirm,
   disableCardConfirm,
+  deleteCardConfirm,
 } from "../../services/boardEditingService";
 import {
   TYPE,
@@ -171,6 +174,8 @@ class KanbanBoard extends Component {
     }
   };
 
+  /*********** EDIT CARD ***********/
+
   handleAddCard = async (title, colId) => {
     try {
       const { cardColumns, id } = this.state;
@@ -181,8 +186,6 @@ class KanbanBoard extends Component {
       console.log(ex);
     }
   };
-
-  /*********** EDIT CARD ***********/
 
   handleToggleModal = (editingCard) => {
     this.setState({ editingCard: editingCard });
@@ -211,9 +214,8 @@ class KanbanBoard extends Component {
     disableCardConfirm(async () => {
       const { id, editingCard, cardColumns } = this.state;
       try {
-        const newColsData = mapDisabledCard(editingCard.id, cardColumns);
         this.setState({
-          cardColumns: newColsData,
+          cardColumns: mapDisabledCard(editingCard.id, cardColumns),
           editingCard: null,
         });
         await disableCard(id, editingCard.id);
@@ -233,6 +235,20 @@ class KanbanBoard extends Component {
     } catch (ex) {
       console.log(ex);
     }
+  };
+
+  handleDeleteCard = (cardId) => {
+    deleteCardConfirm(async () => {
+      const { id, cardColumns } = this.state;
+      try {
+        this.setState({
+          cardColumns: mapDeletedCard(cardId, cardColumns),
+        });
+        await deleteCard(id, cardId);
+      } catch (ex) {
+        console.log(ex);
+      }
+    });
   };
 
   /*********** DRAG AND DROP ***********/
@@ -303,6 +319,7 @@ class KanbanBoard extends Component {
             handleSearchByLabel={this.handleSearchByLabel}
             handleEnableColumn={this.handleEnableColumn}
             handleEnableCard={this.handleEnableCard}
+            handleDeleteCard={this.handleDeleteCard}
             {...this.state}
           />
         </section>

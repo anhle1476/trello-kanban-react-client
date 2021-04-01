@@ -2,7 +2,7 @@ import CardBody from "../CardBody/CardBody.component";
 
 import "./ArchivedCard.style.scss";
 
-const ArchivedCard = ({ card, handleEnableCard }) => {
+const ArchivedCard = ({ card, handleEnableCard, handleDeleteCard }) => {
   return (
     <div className="archived-card">
       <div className="card-container">
@@ -11,7 +11,7 @@ const ArchivedCard = ({ card, handleEnableCard }) => {
       <div className="archived-card-options">
         <p onClick={() => handleEnableCard(card.id)}>Khôi phục</p>
         <span> - </span>
-        <p>Xóa</p>
+        <p onClick={() => handleDeleteCard(card.id)}>Xóa</p>
       </div>
     </div>
   );

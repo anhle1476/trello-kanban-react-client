@@ -52,6 +52,11 @@ export const disableCard = (boardId, cardId) => {
   return axios.delete(requestUrl);
 };
 
+export const deleteCard = (boardId, cardId) => {
+  const requestUrl = `${BASE_URL}/boards/${boardId}/columns/0/cards/${cardId}?type=permanent`;
+  return axios.delete(requestUrl);
+};
+
 export const enableCard = (boardId, cardId) => {
   const requestUrl = `${BASE_URL}/boards/${boardId}/columns/0/cards/${cardId}/enable`;
   return axios.put(requestUrl);

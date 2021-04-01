@@ -34,6 +34,7 @@ const SideMenu = ({
   handleSearchByLabel,
   handleEnableColumn,
   handleEnableCard,
+  handleDeleteCard,
 }) => {
   const [isShow, setShow] = useState(true);
 
@@ -145,6 +146,7 @@ const SideMenu = ({
                 <ArchivedCard
                   key={card.id}
                   handleEnableCard={handleEnableCard}
+                  handleDeleteCard={handleDeleteCard}
                   card={card}
                 />
               ))}
