@@ -17,6 +17,8 @@ const EditCardModal = ({
 }) => {
   const startDateValue = getDate(startDate);
   const dueDateValue = getDate(dueDate);
+  const isTitleEmpty = title.trim().length === 0;
+  const isDetailsTooLong = details.length > 2000;
   return (
     <ModalWrapper handleToggle={() => toggleModal()}>
       <div className="edit-card-modal">
@@ -106,6 +108,7 @@ const EditCardModal = ({
                 <CustomButton
                   customClass="btn-success mr-1"
                   handleClick={handleSubmit}
+                  disabled={isTitleEmpty || isDetailsTooLong}
                 >
                   Lưu thay đổi
                 </CustomButton>
@@ -118,6 +121,14 @@ const EditCardModal = ({
                 </CustomButton>
               </div>
             </div>
+            {isTitleEmpty && (
+              <p className="text-danger">* Tiêu đề thẻ không được để trống</p>
+            )}
+            {isDetailsTooLong && (
+              <p className="text-danger">
+                * Nội dung thẻ không được quá 2000 ký tự
+              </p>
+            )}
           </div>
 
           <div className="optional-btn-group">
