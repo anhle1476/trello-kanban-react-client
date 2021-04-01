@@ -32,6 +32,11 @@ export const disableColumn = (boardId, columnId) => {
   return axios.delete(requestUrl);
 };
 
+export const enableColumn = (boardId, columnId) => {
+  const requestUrl = `${BASE_URL}/boards/${boardId}/columns/${columnId}/enable`;
+  return axios.put(requestUrl);
+};
+
 export const addCard = (boardId, colId, title) => {
   const requestUrl = `${BASE_URL}/boards/${boardId}/columns/${colId}/cards`;
   return axios.post(requestUrl, { title });
@@ -45,6 +50,11 @@ export const editCard = (boardId, cardId, data) => {
 export const disableCard = (boardId, cardId) => {
   const requestUrl = `${BASE_URL}/boards/${boardId}/columns/0/cards/${cardId}`;
   return axios.delete(requestUrl);
+};
+
+export const enableCard = (boardId, cardId) => {
+  const requestUrl = `${BASE_URL}/boards/${boardId}/columns/0/cards/${cardId}/enable`;
+  return axios.put(requestUrl);
 };
 
 export const dragAndDropPersist = (boardId, type, differ) => {

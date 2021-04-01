@@ -19,7 +19,7 @@
 .side-menu {
   transition: all 0.2s ease-out;
   width: 350px;
-  height: 100%;
+  height: calc(100vh - 4rem);
   position: absolute;
   top: 4rem;
   right: -360px;
@@ -49,21 +49,23 @@
     align-items: center;
     justify-content: center;
     text-align: center;
+    padding-bottom: 0.5rem;
 
     .center-group {
       font-size: 1.8rem;
       font-weight: bold;
+      margin: 0;
     }
   }
 
   .side-menu-close-btn {
-    font-size: 3rem;
+    font-size: 2.5rem;
     cursor: pointer;
   }
 }
 
 .side-menu-body {
-  padding: 1rem;
+  padding: 1rem 1rem 3rem 1rem;
   flex-grow: 1;
   overflow-y: auto;
 }

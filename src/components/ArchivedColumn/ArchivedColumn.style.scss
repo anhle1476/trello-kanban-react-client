@@ -1,0 +1,29 @@
+@import "../../constant.scss";
+
+.archived-column {
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid color(gray-trans);
+  align-items: center;
+
+  .archived-column-title {
+    margin: 0;
+  }
+
+  .unarchive-column-btn {
+    background-color: color(gray-trans);
+    padding: 0.7rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      box-shadow: 0 1px 0 rgba(9, 30, 66, 0.25);
+    }
+
+    span {
+      font-size: 1.2rem;
+    }
+  }
+}

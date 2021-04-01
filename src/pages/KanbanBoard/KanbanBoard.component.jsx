@@ -11,16 +11,20 @@ import {
   addColumn,
   addCard,
   disableColumn,
+  enableColumn,
   editCard,
   disableCard,
+  enableCard,
   dragAndDropPersist,
 } from "../../services/requestService";
 import {
   sortData,
   mapColumnChanges,
   mapDisabledColumn,
+  mapEnabledColumn,
   mapEditedCardToColumns,
   mapDisabledCard,
+  mapEnableCard,
   mapCreatedCard,
   disableColumnConfirm,
   disableCardConfirm,
@@ -120,10 +124,10 @@ class KanbanBoard extends Component {
   };
 
   handleColumnTitleSubmit = async (id) => {
-    const { cards, status, ...formData } = this.state.cardColumns.find(
-      (col) => col.id === id
-    );
     try {
+      const { cards, status, ...formData } = this.state.cardColumns.find(
+        (col) => col.id === id
+      );
       await updateColumnTitle(this.state.id, id, formData);
     } catch (ex) {
       console.log(ex);
@@ -146,14 +150,25 @@ class KanbanBoard extends Component {
   handleDisableColumn = (columnId) => {
     disableColumnConfirm(async () => {
       try {
-        await disableColumn(this.state.id, columnId);
         this.setState({
           cardColumns: mapDisabledColumn(columnId, this.state.cardColumns),
         });
+        await disableColumn(this.state.id, columnId);
       } catch (ex) {
         console.log(ex);
       }
     });
+  };
+
+  handleEnableColumn = async (columnId) => {
+    try {
+      this.setState({
+        cardColumns: mapEnabledColumn(columnId, this.state.cardColumns),
+      });
+      await enableColumn(this.state.id, columnId);
+    } catch (ex) {
+      console.log(ex);
+    }
   };
 
   handleAddCard = async (title, colId) => {
@@ -196,16 +211,28 @@ class KanbanBoard extends Component {
     disableCardConfirm(async () => {
       const { id, editingCard, cardColumns } = this.state;
       try {
-        await disableCard(id, editingCard.id);
         const newColsData = mapDisabledCard(editingCard.id, cardColumns);
         this.setState({
           cardColumns: newColsData,
           editingCard: null,
         });
+        await disableCard(id, editingCard.id);
       } catch (ex) {
         console.log(ex);
       }
     });
+  };
+
+  handleEnableCard = async (cardId) => {
+    const { id, cardColumns } = this.state;
+    try {
+      this.setState({
+        cardColumns: mapEnableCard(cardId, cardColumns),
+      });
+      await enableCard(id, cardId);
+    } catch (ex) {
+      console.log(ex);
+    }
   };
 
   /*********** DRAG AND DROP ***********/
@@ -274,6 +301,8 @@ class KanbanBoard extends Component {
             handleColorChange={this.handleColorChange}
             handleSearchByTitle={this.handleSearchByTitle}
             handleSearchByLabel={this.handleSearchByLabel}
+            handleEnableColumn={this.handleEnableColumn}
+            handleEnableCard={this.handleEnableCard}
             {...this.state}
           />
         </section>

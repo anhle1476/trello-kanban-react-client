@@ -21,7 +21,7 @@ const mapCardStatus = (archivedId, columns, isEnabled) =>
 export const mapDisabledCard = (disabledId, columns) =>
   mapCardStatus(disabledId, columns, false);
 
-export const mapRestoreCard = (enabledId, columns) =>
+export const mapEnableCard = (enabledId, columns) =>
   mapCardStatus(enabledId, columns, true);
 
 export const mapColumnChanges = (event, colId, cols) =>
@@ -33,6 +33,12 @@ export const mapColumnChanges = (event, colId, cols) =>
 export const mapDisabledColumn = (disabledId, columns) =>
   columns.map((col) => {
     if (col.id === disabledId) col.status.enabled = false;
+    return col;
+  });
+
+export const mapEnabledColumn = (disabledId, columns) =>
+  columns.map((col) => {
+    if (col.id === disabledId) col.status.enabled = true;
     return col;
   });
 

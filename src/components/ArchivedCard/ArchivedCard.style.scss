@@ -1,0 +1,29 @@
+@import "../../constant.scss";
+
+.archived-card {
+  margin-bottom: 0.5rem;
+
+  .card-container {
+    border: 1px solid color(gray-trans);
+  }
+
+  .archived-card-options {
+    display: flex;
+    color: color(dark);
+
+    p {
+      font-size: 1.2rem;
+      text-decoration: underline;
+      cursor: pointer;
+      opacity: 0.8;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    span {
+      margin: 0 0.5rem;
+    }
+  }
+}

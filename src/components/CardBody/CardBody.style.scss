@@ -1,0 +1,38 @@
+@import "../../constant.scss";
+
+.card-label {
+  width: 1.5rem;
+  border-radius: 3px 0 0 3px;
+}
+
+.card-content {
+  flex-grow: 1;
+  padding: 1rem;
+
+  .symbols {
+    opacity: 0.8;
+    transition: all 0.5s ease;
+    padding: 0.5rem;
+    margin-right: 0.5rem;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &.symbols-pill {
+      color: color(white);
+      background-color: color(primary);
+      padding-left: 1rem;
+      padding-right: 1rem;
+      border-radius: 15px;
+
+      &.start-date {
+        background-color: color(success);
+      }
+
+      &.due-date {
+        background-color: color(danger);
+      }
+    }
+  }
+}

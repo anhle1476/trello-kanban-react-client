@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { CirclePicker } from "react-color";
+import ArchivedCard from "../ArchivedCard/ArchivedCard.component";
+import ArchivedColumn from "../ArchivedColumn/ArchivedColumn.component";
 import CustomButton from "../CustomButton/CustomButton.component";
 import SideMenuOptionWrapper from "../SideMenuOptionWrapper/SideMenuOptionWrapper.component";
 import "./SideMenu.style.scss";
@@ -24,11 +26,14 @@ const SideMenuResetSearchingBtn = ({ resetSearching }) => (
 
 const SideMenu = ({
   color,
+  cardColumns,
   searchByLabel,
   searchByTitle,
   handleColorChange,
   handleSearchByTitle,
   handleSearchByLabel,
+  handleEnableColumn,
+  handleEnableCard,
 }) => {
   const [isShow, setShow] = useState(true);
 
@@ -117,13 +122,32 @@ const SideMenu = ({
             iconClass="fas fa-columns"
             optionTitle="Cột đã ẩn"
           >
-            <p>ABC</p>
+            {cardColumns
+              .filter((col) => !col.status.enabled)
+              .map((col) => (
+                <ArchivedColumn
+                  handleEnableColumn={handleEnableColumn}
+                  key={col.id}
+                  {...col}
+                />
+              ))}
           </SideMenuOptionWrapper>
           <SideMenuOptionWrapper
             iconClass="fas fa-sticky-note"
             optionTitle="Thẻ đã ẩn"
           >
-            <p>ABC</p>
+            {cardColumns
+              .filter((col) => col.status.enabled)
+              .map((col) => col.cards)
+              .flat()
+              .filter((card) => !card.status.enabled)
+              .map((card) => (
+                <ArchivedCard
+                  key={card.id}
+                  handleEnableCard={handleEnableCard}
+                  card={card}
+                />
+              ))}
           </SideMenuOptionWrapper>
           <SideMenuOptionWrapper
             iconClass="fas fa-archive"
