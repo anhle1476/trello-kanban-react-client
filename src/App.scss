@@ -85,12 +85,20 @@ a {
   text-align: center;
 }
 
+.text-white {
+  color: color(white) !important;
+}
+
 .text-primary {
   color: color(primary) !important;
 }
 
 .text-primary-dark {
   color: color(primary-dark) !important;
+}
+
+.text-gray {
+  color: color(gray) !important;
 }
 
 .font-weight-normal {

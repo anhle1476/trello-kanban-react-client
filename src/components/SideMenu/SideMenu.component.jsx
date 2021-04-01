@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { CirclePicker } from "react-color";
+import { Link } from "react-router-dom";
 import ArchivedCard from "../ArchivedCard/ArchivedCard.component";
 import ArchivedColumn from "../ArchivedColumn/ArchivedColumn.component";
 import CustomButton from "../CustomButton/CustomButton.component";
@@ -97,7 +98,7 @@ const SideMenu = ({
           </SideMenuOptionWrapper>
           <SideMenuOptionWrapper
             iconClass="fas fa-search"
-            optionTitle="Tìm kiếm thẻ"
+            optionTitle="Tìm kiếm"
           >
             <input
               type="search"
@@ -127,6 +128,7 @@ const SideMenu = ({
               <i className="fas fa-undo"></i> Đặt lại
             </CustomButton>
           </SideMenuOptionWrapper>
+          <hr />
           <SideMenuOptionWrapper
             iconClass="fas fa-columns"
             optionTitle="Cột đã ẩn"
@@ -158,11 +160,20 @@ const SideMenu = ({
               <p className="text-center mt-1">Không có thẻ nào bị ẩn</p>
             )}
           </SideMenuOptionWrapper>
+          <hr />
           <SideMenuOptionWrapper
             iconClass="fas fa-archive"
             optionTitle="Ẩn bảng"
           >
-            <p>ABC</p>
+            <p className="text-center text-gray">Ẩn bảng</p>
+            <hr />
+            <p className="text-primary-dark">
+              Bạn có thể tìm kiếm và mở lại bảng đã ẩn ở cuối
+              <Link to="/dashboard"> trang Dashboard</Link>
+            </p>
+            <CustomButton customClass="btn-danger btn-block">
+              Xác nhận
+            </CustomButton>
           </SideMenuOptionWrapper>
         </div>
       </div>

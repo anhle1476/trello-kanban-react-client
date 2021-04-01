@@ -32,6 +32,7 @@ class AddBoardModal extends Component {
     const { title, color } = this.state;
     const { toggleModal } = this.props;
     const titleSize = title.trim().length;
+    const titleSizeInvalid = titleSize < 4 || titleSize > 25;
     return (
       <ModalWrapper handleToggle={toggleModal} width={550}>
         <form className="add-board-form" onSubmit={this.handleSubmit}>
@@ -56,12 +57,17 @@ class AddBoardModal extends Component {
                 </span>
               </div>
               <CustomButton
-                disabled={titleSize < 4 || titleSize > 25}
+                disabled={titleSizeInvalid}
                 customClass="btn-success"
                 type="submit"
               >
                 Tạo bảng
               </CustomButton>
+              {titleSize !== 0 && titleSizeInvalid && (
+                <p className="text-white mt-1">
+                  * Tên bảng phải chứa từ 4-25 ký tự
+                </p>
+              )}
             </div>
             <CirclePicker color={color} onChange={this.handleColorChange} />
           </div>

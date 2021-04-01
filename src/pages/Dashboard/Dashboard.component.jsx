@@ -25,7 +25,7 @@ class Dashboard extends Component {
       const response = await getAllBoardsInfo();
       this.setState({ boards: response.data });
     } catch (ex) {
-      console.log(ex.response.data);
+      console.log(ex);
     }
   };
 
@@ -39,13 +39,13 @@ class Dashboard extends Component {
 
   handleAddBoard = async (addForm) => {
     try {
-      const response = createBoard(addForm);
+      const response = await createBoard(addForm);
       this.setState({
         boards: [...this.state.boards, response.data],
         showModal: false,
       });
     } catch (ex) {
-      console.log(ex.response.data);
+      console.log(ex);
     }
   };
 
