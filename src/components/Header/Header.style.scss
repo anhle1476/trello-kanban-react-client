@@ -36,5 +36,17 @@
   .right-box {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
+
+    .header-username {
+      margin-bottom: 0;
+      color: color(white);
+      margin-right: 1rem;
+    }
+
+    .log-out {
+      font-size: 1.4rem;
+      cursor: pointer;
+    }
   }
 }
