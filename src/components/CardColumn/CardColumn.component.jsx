@@ -34,9 +34,10 @@ function CardColumn({
           >
             <div className="column-header">
               <TransparentForm
+                required={true}
                 value={title}
                 handleChange={(e) => handleColumnTitleChange(e, id)}
-                handleChangeComplete={() => handleColumnTitleSubmit(id)}
+                handleChangeComplete={(e) => handleColumnTitleSubmit(e, id)}
                 customClass="primary"
               />
               <span

@@ -3,8 +3,11 @@ import ModalWrapper from "../ModalWrapper/ModalWrapper.component";
 import CustomButton from "../CustomButton/CustomButton.component";
 import Loader from "../Loader/Loader.component";
 
-import { getArchivedBoardsInfo } from "../../services/requestService";
-import { deleteBoard } from "../../services/requestService";
+import {
+  getArchivedBoardsInfo,
+  deleteBoard,
+} from "../../services/requestService";
+import { deleteBoardConfirm } from "../../services/boardEditingService";
 import "./ArchivedBoardsModal.style.scss";
 
 class ArchivedBoardsModal extends Component {
@@ -45,13 +48,15 @@ class ArchivedBoardsModal extends Component {
     this.doFilterBoard(board);
   };
 
-  handleDeleteBoard = async (board) => {
-    try {
-      this.doFilterBoard(board);
-      await deleteBoard(board.id);
-    } catch (ex) {
-      console.log(ex);
-    }
+  handleDeleteBoard = (board) => {
+    deleteBoardConfirm(async () => {
+      try {
+        this.doFilterBoard(board);
+        await deleteBoard(board.id);
+      } catch (ex) {
+        console.log(ex);
+      }
+    });
   };
 
   doFilterBoard = (board) => {

@@ -96,6 +96,10 @@ class KanbanBoard extends Component {
   handleTitleSubmit = async () => {
     const { title, currentTitle } = this.state;
     if (title === currentTitle) return;
+    if (!this.state.title.trim().length) {
+      this.setState({ title: this.state.currentTitle });
+      return;
+    }
     try {
       this.setState({ currentTitle: title }, this.requestUpdateBoard);
     } catch (ex) {
@@ -136,7 +140,11 @@ class KanbanBoard extends Component {
     this.setState({ cardColumns: columns });
   };
 
-  handleColumnTitleSubmit = async (id) => {
+  handleColumnTitleSubmit = async (e, id) => {
+    if (!e.target.value.trim().length) {
+      window.alert("Thay đổi không được lưu. Tiêu đề cột không được để trống");
+      return;
+    }
     try {
       const { cards, status, ...formData } = this.state.cardColumns.find(
         (col) => col.id === id

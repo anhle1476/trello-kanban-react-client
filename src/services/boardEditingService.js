@@ -105,6 +105,23 @@ export const deleteCardConfirm = (doDelete) => {
   });
 };
 
+export const deleteBoardConfirm = (doDelete) => {
+  confirmAlert({
+    title: "Xóa bảng",
+    message:
+      "Bạn có chắc chắn muốn xóa bảng này không? (Hành động này sẽ xóa tất cả nội dung bên trong và không thể khôi phục được)",
+    buttons: [
+      {
+        label: "Có",
+        onClick: doDelete,
+      },
+      {
+        label: "Không",
+      },
+    ],
+  });
+};
+
 export const sortData = (data) => {
   data.cardColumns.sort((col1, col2) => col1.columnOrder - col2.columnOrder);
   data.cardColumns.forEach((col) => {
