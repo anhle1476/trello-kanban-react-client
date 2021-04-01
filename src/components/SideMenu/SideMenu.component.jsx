@@ -59,6 +59,14 @@ const SideMenu = ({
 
   const isResetSearchingBtnDisabled = !searchByLabel && !searchByTitle;
 
+  const archivedColumns = cardColumns.filter((col) => !col.status.enabled);
+
+  const archivedCards = cardColumns
+    .filter((col) => col.status.enabled)
+    .map((col) => col.cards)
+    .flat()
+    .filter((card) => !card.status.enabled);
+
   return (
     <>
       <div className="side-menu-toggle-btn-group">
@@ -123,33 +131,32 @@ const SideMenu = ({
             iconClass="fas fa-columns"
             optionTitle="Cột đã ẩn"
           >
-            {cardColumns
-              .filter((col) => !col.status.enabled)
-              .map((col) => (
-                <ArchivedColumn
-                  handleEnableColumn={handleEnableColumn}
-                  key={col.id}
-                  {...col}
-                />
-              ))}
+            {archivedColumns.map((col) => (
+              <ArchivedColumn
+                handleEnableColumn={handleEnableColumn}
+                key={col.id}
+                {...col}
+              />
+            ))}
+            {!archivedColumns.length && (
+              <p className="text-center mt-1">Không có cột nào bị ẩn</p>
+            )}
           </SideMenuOptionWrapper>
           <SideMenuOptionWrapper
             iconClass="fas fa-sticky-note"
             optionTitle="Thẻ đã ẩn"
           >
-            {cardColumns
-              .filter((col) => col.status.enabled)
-              .map((col) => col.cards)
-              .flat()
-              .filter((card) => !card.status.enabled)
-              .map((card) => (
-                <ArchivedCard
-                  key={card.id}
-                  handleEnableCard={handleEnableCard}
-                  handleDeleteCard={handleDeleteCard}
-                  card={card}
-                />
-              ))}
+            {archivedCards.map((card) => (
+              <ArchivedCard
+                key={card.id}
+                handleEnableCard={handleEnableCard}
+                handleDeleteCard={handleDeleteCard}
+                card={card}
+              />
+            ))}
+            {!archivedCards.length && (
+              <p className="text-center mt-1">Không có thẻ nào bị ẩn</p>
+            )}
           </SideMenuOptionWrapper>
           <SideMenuOptionWrapper
             iconClass="fas fa-archive"
