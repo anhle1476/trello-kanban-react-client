@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import ModalWrapper from "../ModalWrapper/ModalWrapper.component";
+import CustomButton from "../CustomButton/CustomButton.component";
+import Loader from "../Loader/Loader.component";
 
 import { getArchivedBoardsInfo } from "../../services/requestService";
-
+import { deleteBoard } from "../../services/requestService";
 import "./ArchivedBoardsModal.style.scss";
-import CustomButton from "../CustomButton/CustomButton.component";
 
 class ArchivedBoardsModal extends Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class ArchivedBoardsModal extends Component {
       this.setState({
         ...this.state,
         archivedBoards: response.data,
-        fetch: false,
+        fetching: false,
       });
     } catch (ex) {
       console.log(ex);
@@ -41,6 +42,19 @@ class ArchivedBoardsModal extends Component {
 
   handleFilterAndRestoreBoard = (board) => {
     this.props.handleRestoreBoard(board);
+    this.doFilterBoard(board);
+  };
+
+  handleDeleteBoard = async (board) => {
+    try {
+      this.doFilterBoard(board);
+      await deleteBoard(board.id);
+    } catch (ex) {
+      console.log(ex);
+    }
+  };
+
+  doFilterBoard = (board) => {
     this.setState({
       archivedBoards: this.state.archivedBoards.filter(
         (archived) => archived.id !== board.id
@@ -50,7 +64,7 @@ class ArchivedBoardsModal extends Component {
 
   render() {
     const { handleToggle } = this.props;
-    const { archivedBoards, search } = this.state;
+    const { archivedBoards, search, fetching } = this.state;
     const searchKeyword = search.toLowerCase();
     const total = archivedBoards.length;
     const filtered = archivedBoards.filter(
@@ -76,30 +90,39 @@ class ArchivedBoardsModal extends Component {
               disabled={!total}
             />
           </div>
-          <div className="modal-board-container">
-            {!total && (
-              <p className="text-center mt-1">Không có bảng nào bị ẩn</p>
-            )}
-            {filtered.map((board) => (
-              <div key={board.id} className="archived-board">
-                <p>{board.title}</p>
-                <div>
-                  <CustomButton customClass="btn-gray btn-small text-primary-dark">
-                    &#10005; <span> Xóa</span>
-                  </CustomButton>
-                  <CustomButton
-                    customClass="btn-success btn-small"
-                    handleClick={() => this.handleFilterAndRestoreBoard(board)}
-                  >
-                    <i className="fas fa-undo"></i> <span> Khôi phục</span>
-                  </CustomButton>
+          {fetching ? (
+            <Loader />
+          ) : (
+            <div className="modal-board-container">
+              {!total && (
+                <p className="text-center mt-1">Không có bảng nào bị ẩn</p>
+              )}
+              {filtered.map((board) => (
+                <div key={board.id} className="archived-board">
+                  <p>{board.title}</p>
+                  <div>
+                    <CustomButton
+                      customClass="btn-gray btn-small text-primary-dark"
+                      handleClick={() => this.handleDeleteBoard(board)}
+                    >
+                      &#10005; <span> Xóa</span>
+                    </CustomButton>
+                    <CustomButton
+                      customClass="btn-success btn-small"
+                      handleClick={() =>
+                        this.handleFilterAndRestoreBoard(board)
+                      }
+                    >
+                      <i className="fas fa-undo"></i> <span> Khôi phục</span>
+                    </CustomButton>
+                  </div>
                 </div>
-              </div>
-            ))}
-            {searchKeyword !== "" && total && (
-              <p className="mt-1">{`${filtered.length}/${total} Bảng`}</p>
-            )}
-          </div>
+              ))}
+              {searchKeyword !== "" && total && (
+                <p className="mt-1">{`${filtered.length}/${total} Bảng`}</p>
+              )}
+            </div>
+          )}
         </div>
       </ModalWrapper>
     );

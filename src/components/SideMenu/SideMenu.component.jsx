@@ -38,7 +38,7 @@ const SideMenu = ({
   handleDeleteCard,
   handleDisableBoard,
 }) => {
-  const [isShow, setShow] = useState(true);
+  const [isShow, setShow] = useState(false);
 
   const toggleShow = () => {
     setShow(!isShow);
