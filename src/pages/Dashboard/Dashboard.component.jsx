@@ -4,7 +4,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import BoardPreview from "../../components/BoardPreview/BoardPreview.component";
 import AddBoardModal from "../../components/AddBoardModal/AddBoardModal.component";
+import ArchivedBoardsModal from "../../components/ArchivedBoardsModal/ArchivedBoardsModal.component";
 import { getAllBoardsInfo, createBoard } from "../../services/requestService";
+import { sortByLastedView } from "../../services/dateUtils";
+import { enableBoard } from "../../services/requestService";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -13,6 +16,7 @@ class Dashboard extends Component {
     this.state = {
       boards: [],
       showModal: false,
+      showArchivedBoards: false,
     };
   }
 
@@ -49,8 +53,25 @@ class Dashboard extends Component {
     }
   };
 
+  handleRestoreBoard = async (board) => {
+    try {
+      const availableBoards = [...this.state.boards, board];
+      sortByLastedView(availableBoards);
+      this.setState({
+        boards: availableBoards,
+      });
+      await enableBoard(board.id);
+    } catch (ex) {
+      console.log(ex);
+    }
+  };
+
+  toggleShowArchivedBoardsModal = () => {
+    this.setState({ showArchivedBoards: !this.state.showArchivedBoards });
+  };
+
   render() {
-    const { boards, showModal } = this.state;
+    const { boards, showModal, showArchivedBoards } = this.state;
     return (
       <div className="container">
         {showModal && (
@@ -75,6 +96,20 @@ class Dashboard extends Component {
 
             <BoardPreview onClick={this.toggleModal} addBoard={true} />
           </div>
+        </section>
+        <section className="archived-boards-section">
+          <div
+            className="show-archive-board-btn"
+            onClick={this.toggleShowArchivedBoardsModal}
+          >
+            Xem tất cả bảng đã ẩn
+          </div>
+          {showArchivedBoards && (
+            <ArchivedBoardsModal
+              handleToggle={this.toggleShowArchivedBoardsModal}
+              handleRestoreBoard={this.handleRestoreBoard}
+            />
+          )}
         </section>
       </div>
     );

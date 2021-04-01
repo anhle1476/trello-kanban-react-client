@@ -30,12 +30,13 @@ const SideMenu = ({
   cardColumns,
   searchByLabel,
   searchByTitle,
-  handleColorChange,
+  handleBoardColorChange,
   handleSearchByTitle,
   handleSearchByLabel,
   handleEnableColumn,
   handleEnableCard,
   handleDeleteCard,
+  handleDisableBoard,
 }) => {
   const [isShow, setShow] = useState(true);
 
@@ -93,7 +94,7 @@ const SideMenu = ({
             optionTitle="Đổi màu bảng"
           >
             <div className="background-color-swatch">
-              <CirclePicker color={color} onChange={handleColorChange} />
+              <CirclePicker color={color} onChange={handleBoardColorChange} />
             </div>
           </SideMenuOptionWrapper>
           <SideMenuOptionWrapper
@@ -171,7 +172,10 @@ const SideMenu = ({
               Bạn có thể tìm kiếm và mở lại bảng đã ẩn ở cuối
               <Link to="/dashboard"> trang Dashboard</Link>
             </p>
-            <CustomButton customClass="btn-danger btn-block">
+            <CustomButton
+              customClass="btn-danger btn-block"
+              handleClick={handleDisableBoard}
+            >
               Xác nhận
             </CustomButton>
           </SideMenuOptionWrapper>

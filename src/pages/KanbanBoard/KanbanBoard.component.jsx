@@ -7,6 +7,7 @@ import TransparentForm from "../../components/TransparentForm/TransparentForm.co
 import {
   getBoardById,
   updateBoard,
+  disableBoard,
   updateColumnTitle,
   addColumn,
   addCard,
@@ -102,7 +103,7 @@ class KanbanBoard extends Component {
     }
   };
 
-  handleColorChange = (result) => {
+  handleBoardColorChange = (result) => {
     try {
       this.setState({ color: result.hex }, this.requestUpdateBoard);
     } catch (ex) {
@@ -117,6 +118,15 @@ class KanbanBoard extends Component {
       title,
       color,
     });
+  };
+
+  handleDisableBoard = async () => {
+    try {
+      await disableBoard(this.state.id);
+      this.props.history.push("/dashboard");
+    } catch (ex) {
+      console.log(ex);
+    }
   };
 
   /*********** EDIT COLUMNS ***********/
@@ -314,12 +324,13 @@ class KanbanBoard extends Component {
             />
           </h2>
           <SideMenu
-            handleColorChange={this.handleColorChange}
+            handleBoardColorChange={this.handleBoardColorChange}
             handleSearchByTitle={this.handleSearchByTitle}
             handleSearchByLabel={this.handleSearchByLabel}
             handleEnableColumn={this.handleEnableColumn}
             handleEnableCard={this.handleEnableCard}
             handleDeleteCard={this.handleDeleteCard}
+            handleDisableBoard={this.handleDisableBoard}
             {...this.state}
           />
         </section>

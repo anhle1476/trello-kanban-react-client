@@ -1,7 +1,7 @@
 @import "../../constant.scss";
 .header {
   display: grid;
-  position: absolute;
+  position: fixed;
   width: 100vw;
   top: 0;
   grid-template-columns: repeat(3, 1fr);

@@ -1,7 +1,7 @@
 @import "../../constant.scss";
 
 .dashboard-section {
-  border-bottom: 1px solid color(gray);
+  border-bottom: 1px solid color(gray-trans);
   padding: 3rem 0;
 
   .section-title {
@@ -32,6 +32,25 @@
   @media (min-width: 992px) {
     .section-previews {
       grid-template-columns: repeat(4, 1fr);
+    }
+  }
+}
+
+.archived-boards-section {
+  padding: 3rem 0;
+
+  .show-archive-board-btn {
+    background-color: color(gray-trans);
+    padding: 1rem 2rem;
+    display: inline-block;
+    color: color(primary-dark);
+    border-radius: 5px;
+    font-size: 1.4rem;
+    cursor: pointer;
+    opacity: 0.9;
+
+    &:hover {
+      opacity: 1;
     }
   }
 }

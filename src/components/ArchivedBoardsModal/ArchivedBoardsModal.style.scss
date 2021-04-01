@@ -1,0 +1,67 @@
+@import "../../constant.scss";
+
+.archived-boards-modal {
+  width: 400px;
+  max-height: 85vh;
+  overflow-y: auto;
+  background-color: color(light);
+  color: color(primary-dark);
+  margin: auto;
+  padding: 3rem;
+  border-radius: 5px;
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .modal-title,
+    .modal-close-btn {
+      font-size: 1.9rem;
+    }
+
+    .modal-close-btn {
+      cursor: pointer;
+    }
+  }
+
+  .modal-search {
+    display: flex;
+    justify-content: center;
+  }
+
+  .modal-board-container {
+    .archived-board {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      border-bottom: 1px solid color(gray-trans);
+
+      p {
+        text-decoration: underline;
+        margin: 0;
+      }
+
+      .btn {
+        margin-left: 0.5rem;
+
+        span {
+          margin-left: 0.5rem;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .archived-boards-modal {
+    width: 700px;
+  }
+}
+
+@media (min-width: 992px) {
+  .archived-boards-modal {
+    width: 800px;
+  }
+}

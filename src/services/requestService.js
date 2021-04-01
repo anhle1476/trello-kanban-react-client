@@ -6,7 +6,12 @@ const API_VERSION = "v1";
 
 const BASE_URL = `${BASE_DOMAIN}/api/${API_VERSION}`;
 
+// BOARD
+
 export const getAllBoardsInfo = () => axios.get(`${BASE_URL}/boards`);
+
+export const getArchivedBoardsInfo = () =>
+  axios.get(`${BASE_URL}/boards?type=archived`);
 
 export const createBoard = (newBoard) =>
   axios.post(`${BASE_URL}/boards`, newBoard);
@@ -16,6 +21,17 @@ export const getBoardById = (boardId) =>
 
 export const updateBoard = (boardId, data) =>
   axios.put(`${BASE_URL}/boards/${boardId}`, data);
+
+export const disableBoard = (boardId) =>
+  axios.delete(`${BASE_URL}/boards/${boardId}`);
+
+export const deleteBoard = (boardId) =>
+  axios.delete(`${BASE_URL}/boards/${boardId}?type=permanent`);
+
+export const enableBoard = (boardId) =>
+  axios.put(`${BASE_URL}/boards/${boardId}/enable`);
+
+// COLUMNS
 
 export const addColumn = (boardId, title) => {
   const requestUrl = `${BASE_URL}/boards/${boardId}/columns`;
@@ -36,6 +52,8 @@ export const enableColumn = (boardId, columnId) => {
   const requestUrl = `${BASE_URL}/boards/${boardId}/columns/${columnId}/enable`;
   return axios.put(requestUrl);
 };
+
+// CARDS
 
 export const addCard = (boardId, colId, title) => {
   const requestUrl = `${BASE_URL}/boards/${boardId}/columns/${colId}/cards`;
@@ -61,6 +79,8 @@ export const enableCard = (boardId, cardId) => {
   const requestUrl = `${BASE_URL}/boards/${boardId}/columns/0/cards/${cardId}/enable`;
   return axios.put(requestUrl);
 };
+
+// DRAG AND DROP
 
 export const dragAndDropPersist = (boardId, type, differ) => {
   const requestUrl = `${BASE_URL}/dnd/${boardId}/${

@@ -1,4 +1,4 @@
-import { withRouter } from "react-router";
+import { formatDateFromStr } from "../../services/dateUtils";
 import "./BoardPreview.style.scss";
 
 function BoardPreview({
@@ -24,11 +24,13 @@ function BoardPreview({
             <div className="board-status">
               {status.updatedAt ? (
                 <p>
-                  <i className="fas fa-pen-alt"></i> {status.updatedAt}
+                  <i className="fas fa-pen-alt"></i>{" "}
+                  {formatDateFromStr(status.updatedAt)}
                 </p>
               ) : (
                 <p>
-                  <i className="fas fa-puzzle-piece"></i> {status.createdAt}
+                  <i className="fas fa-puzzle-piece"></i>{" "}
+                  {formatDateFromStr(status.createdAt)}
                 </p>
               )}
             </div>
@@ -39,4 +41,4 @@ function BoardPreview({
   );
 }
 
-export default withRouter(BoardPreview);
+export default BoardPreview;
