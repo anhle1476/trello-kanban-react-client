@@ -3,20 +3,24 @@ import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-const SecuredRoute = ({ component: Component, security, ...otherProps }) => (
+const NoLoginOnlyRoute = ({
+  component: Component,
+  security,
+  ...otherProps
+}) => (
   <Route
     {...otherProps}
     render={(props) =>
-      security.validToken === true ? (
+      !security?.user?.userId ? (
         <Component {...props} />
       ) : (
-        <Redirect to="/login" />
+        <Redirect to="/dashboard" />
       )
     }
   />
 );
 
-SecuredRoute.propTypes = {
+NoLoginOnlyRoute.propTypes = {
   security: PropTypes.object.isRequired,
 };
 
@@ -24,4 +28,4 @@ const mapStateToProps = (state) => ({
   security: state.security,
 });
 
-export default connect(mapStateToProps)(SecuredRoute);
+export default connect(mapStateToProps)(NoLoginOnlyRoute);

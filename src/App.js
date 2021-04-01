@@ -10,6 +10,9 @@ import Loader from "./components/Loader/Loader.component";
 import KanbanBoard from "./pages/KanbanBoard/KanbanBoard.component";
 import ErrorPage from "./pages/ErrorPage/ErrorPage.component";
 
+import MustLoginRoute from "./routing/MustLoginRoute/MustLoginRoute.component";
+import NoLoginOnlyRoute from "./routing/NoLoginOnlyRoute/NoLoginOnlyRoute.component";
+
 import "css-reset/reset.css";
 import "./App.scss";
 
@@ -18,10 +21,10 @@ const App = ({ isReady }) => (
     <Header />
     {isReady ? (
       <Switch>
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/register" component={Register} />
-        <Route exact path="/dashboard" component={Dashboard} />
-        <Route exact path="/boards/:boardId" component={KanbanBoard} />
+        <NoLoginOnlyRoute exact path="/login" component={Login} />
+        <NoLoginOnlyRoute exact path="/register" component={Register} />
+        <MustLoginRoute exact path="/dashboard" component={Dashboard} />
+        <MustLoginRoute exact path="/boards/:boardId" component={KanbanBoard} />
         <Route path="/" component={ErrorPage} />
       </Switch>
     ) : (
