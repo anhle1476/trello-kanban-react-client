@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import HeroAnimation from "../../components/HeroAnimation/HeroAnimation.component";
 import "./HomePage.style.scss";
 
 function HomePage({ user }) {
@@ -36,6 +37,7 @@ function HomePage({ user }) {
           </Link>
         )}
       </div>
+      <HeroAnimation />
     </div>
   );
 }

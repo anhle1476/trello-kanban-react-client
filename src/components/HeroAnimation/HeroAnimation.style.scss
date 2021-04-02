@@ -1,0 +1,104 @@
+.svg-container {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  opacity: 0.9;
+
+  // animation: name duration timing-function delay iteration-count direction fill-mode;
+
+  #right-hand-girl {
+    animation: right-hand-girl 3s ease alternate infinite;
+    transform-origin: top;
+    transform-box: fill-box;
+  }
+
+  #left-hand-girl {
+    animation: left-hand-girl 2s ease-out alternate infinite;
+    transform-origin: right;
+    transform-box: fill-box;
+  }
+
+  #head-girl {
+    animation: head-girl 2s ease alternate infinite;
+    transform-origin: center;
+    transform-box: fill-box;
+  }
+
+  #right-hand-man {
+    animation: right-hand-man 3s ease alternate infinite;
+    transform-origin: left;
+    transform-box: fill-box;
+  }
+
+  #left-hand-man {
+    animation: left-hand-man 4s ease-out alternate infinite;
+    transform-origin: right;
+    transform-box: fill-box;
+  }
+
+  #head-man {
+    animation: head-man 3s ease alternate infinite;
+    transform-origin: center;
+    transform-box: fill-box;
+  }
+}
+
+@keyframes right-hand-girl {
+  from {
+    transform: translateY(0px) rotateZ(0deg);
+  }
+
+  to {
+    transform: translateY(10px) rotateZ(10deg);
+  }
+}
+
+@keyframes left-hand-girl {
+  from {
+    transform: translateX(0px) rotateZ(0deg);
+  }
+
+  to {
+    transform: translateX(-10px) rotateZ(10deg);
+  }
+}
+
+@keyframes head-girl {
+  from {
+    transform: rotateZ(0deg);
+  }
+
+  to {
+    transform: rotateZ(10deg);
+  }
+}
+
+@keyframes right-hand-man {
+  from {
+    transform: translateY(0px) translateX(0px) rotateZ(0deg);
+  }
+
+  to {
+    transform: translateY(10px) translateX(5px) rotateZ(10deg);
+  }
+}
+
+@keyframes left-hand-man {
+  from {
+    transform: translateX(0px) rotateZ(0deg);
+  }
+
+  to {
+    transform: translateX(-10px) rotateZ(10deg);
+  }
+}
+
+@keyframes head-man {
+  from {
+    transform: rotateZ(0deg);
+  }
+
+  to {
+    transform: rotateZ(10deg);
+  }
+}
