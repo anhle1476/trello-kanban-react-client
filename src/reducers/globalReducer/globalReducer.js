@@ -1,6 +1,6 @@
 import { SECURITY, GLOBAL } from "../type";
 const initialState = {
-  errors: [],
+  errors: {},
   ready: false,
 };
 
