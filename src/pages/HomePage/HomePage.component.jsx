@@ -20,6 +20,7 @@ function HomePage({ user }) {
               className="original-link"
               target="_blank"
               href="https://trello.com/"
+              rel="noreferrer"
             >
               Trello
             </a>
