@@ -89,6 +89,7 @@ class ArchivedBoardsModal extends Component {
           <div className="modal-search">
             <input
               type="search"
+              className="archived-boards-search input-control"
               value={search}
               placeholder="Tìm kiếm..."
               onChange={this.handleSearch}

@@ -15,6 +15,7 @@ import NoLoginOnlyRoute from "./routing/NoLoginOnlyRoute/NoLoginOnlyRoute.compon
 
 import "css-reset/reset.css";
 import "./App.scss";
+import HomePage from "./pages/HomePage/HomePage.component";
 
 const App = ({ isReady }) => (
   <div className="App">
@@ -25,6 +26,7 @@ const App = ({ isReady }) => (
         <NoLoginOnlyRoute exact path="/register" component={Register} />
         <MustLoginRoute exact path="/dashboard" component={Dashboard} />
         <MustLoginRoute exact path="/boards/:boardId" component={KanbanBoard} />
+        <Route exact path="/" component={HomePage} />
         <Route path="/" component={ErrorPage} />
       </Switch>
     ) : (

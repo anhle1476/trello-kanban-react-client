@@ -1,0 +1,60 @@
+@import "../../constant.scss";
+
+.home-page {
+  margin: auto;
+  max-width: 1200px;
+  margin-top: 4.5rem;
+  height: calc(100vh - 4.5rem);
+  background-image: url(../../assets/hero.png);
+  background-position: bottom right;
+  background-repeat: no-repeat;
+  background-size: contain;
+  color: color(primary-dark);
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 5rem;
+
+  .hero-container {
+    max-width: 500px;
+    background-color: color(white);
+    border-radius: 5px;
+    padding: 2rem;
+    box-shadow: 0 1px 0 rgba(9, 30, 66, 0.25);
+
+    .hero-title {
+      font-size: 4rem;
+    }
+
+    .hero-body {
+      font-size: 2rem;
+    }
+
+    .original-link {
+      font-size: 1rem;
+    }
+
+    .hero-redirect-btn {
+      padding: 1rem 1.5rem;
+      color: color(white);
+      background-color: color(primary);
+      border-radius: 5px;
+    }
+  }
+}
+
+@media (min-width: 700px) {
+  .home-page .hero-container {
+    max-width: 600px;
+    background-color: color(white-trans);
+  }
+}
+
+@media (min-width: 900px) {
+  .home-page .hero-container {
+    max-width: 700px;
+    background-color: transparent;
+    box-shadow: none;
+  }
+}

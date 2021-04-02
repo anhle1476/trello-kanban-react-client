@@ -14,7 +14,7 @@ function CustomDatePicker({
   return (
     <DatePicker
       dateFormat="dd-MM-yyyy"
-      className="custom-date-picker"
+      className="custom-date-picker input-control"
       selected={value}
       onChange={(date) => onDateChange({ name, value: getDateStr(date) })}
       isClearable
